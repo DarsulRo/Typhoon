@@ -1,0 +1,16 @@
+@font-face{
+    font-family: Exo-Light;
+    src: url('../res/Exo-Light.otf');
+}
+:root{
+    --mainwhite: #ffffff;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Exo-Light';
+}
+html{
+    font-size: large;
+}
