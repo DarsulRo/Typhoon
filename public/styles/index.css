@@ -1,0 +1,47 @@
+html{
+    background-image: url('../res/wave2.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+body{
+    
+    background-image: linear-gradient(to top left, #44bbeea0, #0088bba0);
+    background-repeat: no-repeat;
+
+}
+
+main{
+    background-image: linear-gradient(to top left, rgb(214, 214, 214), white);
+    padding: 4rem 0;
+    box-shadow: 0 0 50px 5px rgba(0, 0, 0, 0.397);
+    border-radius: 0.3rem;
+    border: solid var(--gray);
+    border-width: 0 0 0 1rem;
+}
+
+.logo{
+    margin-bottom: 4rem;
+    font-size: 2rem;
+    color:var(--gray);
+}
+
+.buttons{
+    
+}
+.buttons .button{
+    width: 8rem;
+    padding: 1rem;
+    margin: 0 1rem;
+    border: solid var(--darkblue) 0.2rem;
+    color: var(--gray);
+    transition: color 0.3s ease 0s,
+                background-color 0.3s ease,
+                border-color 0.3s ease;
+    border-radius: 0.1rem;
+}
+
+.button:hover{
+    color: var(--mainwhite);
+    background-color: var(--lightblue);
+    border-color: var(--lightblue);
+}
