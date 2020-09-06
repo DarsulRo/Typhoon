@@ -1,0 +1,98 @@
+.flex-row{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.flex-column{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.errorAlert{
+    position: fixed;
+    z-index: 10;
+    top:2rem;
+    background-color: var(--mainwhite);
+    color:var(--gray);
+    border-left: solid 0.5rem var(--gray);
+    border-bottom: solid 0.5rem var(--gray);
+    padding: 1rem;
+    border-radius: 1rem;
+    justify-content: space-between;
+    width: min(25rem,100%);
+    box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.39);
+    transition: all 0.3s ease;
+}
+.errorAlert h3{
+    font-weight: 500;
+    font-size: larger;
+}
+.errorAlert a{
+    font-size: xx-large;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 3px;
+    cursor: pointer;
+}
+.errorAlert a:hover{
+    background-color: rgba(128, 128, 128, 0.288);
+}
+
+
+
+.C-underline{
+    position: relative;
+}
+.C-underline::after{
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0.2rem;
+    left:50%;
+    transition: width 0.3s ease, left 0.3s ease;
+    background-color: var(--gray);
+    bottom: -0.2rem;
+    border-radius: 2px;
+}
+.C-underline:hover::after{
+    width: 100%;
+    left: 0;
+}
+
+
+
+.C-fillButton{
+    border: solid var(--darkblue) 4px;
+    color: var(--gray);
+    position: relative; 
+    padding: 1rem;
+    width: 10rem;
+    margin: 0 1rem;
+    z-index: 1;
+    text-transform: uppercase;
+    overflow: hidden;
+    transition:all 0.5s ease;
+}
+.C-fillButton:hover{
+    color:var(--mainwhite);
+}
+.C-fillButton::after{
+    content: '';
+    background: var(--darkblue);
+    position: absolute;
+    top:50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+    transition: all 0.6s ease;
+    width: 100%;
+    height: 0;
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+.C-fillButton:hover::after{
+    height: 400%;
+    width: 200%;
+}
