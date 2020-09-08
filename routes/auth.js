@@ -1,35 +1,6 @@
-const express = require('express')
-const server  = express()
-const bcrypt = require('bcrypt')
-const jwt = require('jsonwebtoken')
+var server = require('express').Router()
 
 
-
-const MongoClient = require('mongodb').MongoClient
-var url ="mongodb://localhost:27017/typhoon"
-var DB
-MongoClient.connect(url,{useNewUrlParser:true, useUnifiedTopology:true}, function(err,db){
-    if(err)  throw err;
-     else{
-        DB = db.db('typhoon')
-        console.log('Connection to Typhoon database made')
-    }
-})
-
-
-server.use(express.urlencoded({extended:true}))
-server.set('view engine','ejs')
-server.use(express.static('public'))
-server.use(logger)
-function logger(req,res,next){
-    console.log("["+req.method+"] Request made at [" + new Date().toLocaleTimeString() + "] by ["  + req.ip + "] for [" +req.url + "]")
-    next();
-}
-
-
-server.get('/',function(req,res){
-    res.sendFile(__dirname + "/index.html")
-})
 server.get('/register',(req,res)=>{
     res.render('register',{error:null})
 })
@@ -63,10 +34,4 @@ server.post('/login',(req,res)=>{
             res.render('login',{error:"Email or password is wrong"})
         }
     })
-})
-
-
-
-server.listen(80,function(){
-    console.log("Listening on port 80")
 })

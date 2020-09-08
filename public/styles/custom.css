@@ -65,7 +65,7 @@
 
 
 .C-fillButton{
-    border: solid var(--darkblue) 4px;
+    border: solid var(--lightblue) 4px;
     color: var(--gray);
     position: relative; 
     padding: 1rem;
@@ -81,7 +81,7 @@
 }
 .C-fillButton::after{
     content: '';
-    background: var(--darkblue);
+    background: var(--lightblue);
     position: absolute;
     top:50%;
     left: 50%;
