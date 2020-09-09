@@ -1,14 +1,16 @@
-var server = require('express').Router()
+var router = require('express').Router()
+var {MongoConnection} = require('../mongoConnection')
 
 
-server.get('/register',(req,res)=>{
+
+router.get('/register',(req,res)=>{
     res.render('register',{error:null})
 })
-server.post('/register',function(req,res){
-    DB.collection('users').findOne({email:req.body.email},function(err,result){
+router.post('/register',function(req,res){
+    MongoConnection.db.db('typhoon').collection('users').findOne({email:req.body.email},function(err,result){
         if(err) throw err;
         else if(result == null){
-            DB.collection('users').insertOne({email: req.body.email, username: req.body.username, password: req.body.password1},function(err2,result2){
+            MongoConnection.db.db('typhoon').collection('users').insertOne({email: req.body.email, username: req.body.username, password: req.body.password1},function(err2,result2){
                 if(err2) throw err2;
                 else{
                     res.redirect('/login')
@@ -20,11 +22,11 @@ server.post('/register',function(req,res){
         }
     })
 })
-server.get('/login',(req, res)=>{
+router.get('/login',(req, res)=>{
     res.render('login',{error:null})
 })
-server.post('/login',(req,res)=>{
-    DB.collection('users').findOne({email:req.body.email, password: req.body.password},function(err,result){
+router.post('/login',(req,res)=>{
+    MongoConnection.db.db('typhoon').collection('users').findOne({email:req.body.email, password: req.body.password},function(err,result){
         if(err) throw err;
         else if(result){
             //User found
@@ -35,3 +37,5 @@ server.post('/login',(req,res)=>{
         }
     })
 })
+
+module.exports=router
