@@ -1,9 +1,6 @@
 const MongoClient = require('mongodb').MongoClient
-
-class Connection {
+class MongoConnection {
    
-
-    // or in the new async world
     static async connectToMongo() {
         if (this.db) return this.db
         this.db = await MongoClient.connect(this.url, this.options)
@@ -11,13 +8,11 @@ class Connection {
     }
 }
 
-Connection.db = null
-Connection.url = 'mongodb://127.0.0.1:27017/test_db'
-Connection.options = {
-    bufferMaxEntries:   0,
-    reconnectTries:     5000,
+MongoConnection.db = null
+MongoConnection.url = 'mongodb://localhost:27017'
+MongoConnection.options = {
     useNewUrlParser:    true,
     useUnifiedTopology: true,
 }
 
-module.exports = { Connection }
+module.exports = { MongoConnection }

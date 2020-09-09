@@ -2,19 +2,15 @@ const express = require('express')
 const server  = express()
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+const {MongoConnection} = require('./mongoConnection')
 
+async function connectMongo(){
+    await MongoConnection.connectToMongo();
+    DB = MongoConnection.db.db('typhoon')
+    console.log('Connected to the Typhoon database')
+}
+connectMongo()
 
-
-const MongoClient = require('mongodb').MongoClient
-var url ="mongodb://localhost:27017/typhoon"
-var DB
-MongoClient.connect(url,{useNewUrlParser:true, useUnifiedTopology:true}, function(err,db){
-    if(err)  throw err;
-     else{
-        DB = db.db('typhoon')
-        console.log('Connection to Typhoon database made')
-    }
-})
 
 
 server.use(express.urlencoded({extended:true}))
