@@ -2,7 +2,6 @@ var router = require('express').Router()
 var {MongoConnection} = require('../mongoConnection')
 
 
-
 router.get('/register',(req,res)=>{
     res.render('register',{error:null})
 })
