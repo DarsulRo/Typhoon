@@ -19,13 +19,9 @@
     box-sizing: border-box;
     text-decoration: none;
 }
-html{
-    font-size: large;
-    min-height: 100vh;
-}
+
 body{
     min-height: 100vh;
-    display: flex;
 }
 
 

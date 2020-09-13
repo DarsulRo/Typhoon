@@ -1,40 +1,61 @@
 var router = require('express').Router()
 var {MongoConnection} = require('../mongoConnection')
-
+const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
+const env = require('dotenv')
+const cookie = require('cookie-parser')
+env.config()
 
 router.get('/register',(req,res)=>{
     res.render('register',{error:null})
 })
-router.post('/register',function(req,res){
+router.post('/register', function(req,res){
     MongoConnection.db.db('typhoon').collection('users').findOne({email:req.body.email},function(err,result){
         if(err) throw err;
         else if(result == null){
-            MongoConnection.db.db('typhoon').collection('users').insertOne({email: req.body.email, username: req.body.username, password: req.body.password1},function(err2,result2){
+            
+            //HASH PASSWORD
+            const salt =  bcrypt.genSaltSync(10)
+            const hashedPass = bcrypt.hashSync(req.body.password1,salt)
+
+            //INSERT USER
+            MongoConnection.db.db('typhoon').collection('users').insertOne({email: req.body.email, username: req.body.username, password: hashedPass},function(err2,result2){
                 if(err2) throw err2;
                 else{
-                    res.redirect('/login')
+                    res.redirect('/')
                 }
             })
         }
         else{
-            res.render('register',{error: "This email is already in use"})
-        }
-    })
-})
-router.get('/login',(req, res)=>{
-    res.render('login',{error:null})
-})
-router.post('/login',(req,res)=>{
-    MongoConnection.db.db('typhoon').collection('users').findOne({email:req.body.email, password: req.body.password},function(err,result){
-        if(err) throw err;
-        else if(result){
-            //User found
-            res.redirect('/')
-        }
-        else {
-            res.render('login',{error:"Email or password is wrong"})
+            //EMAIL ALREADY USED
+            res.status(404).render('register',{error: "This email is unavailable"})
         }
     })
 })
 
-module.exports=router
+
+
+router.get('/login',(req, res)=>{
+    res.render('login',{error:null})
+})
+router.post('/login',(req,res)=>{
+    MongoConnection.db.db('typhoon').collection('users').findOne({email:req.body.email},function(err,result){
+        //EMAIL NOT FOUND
+        if(err||!result) return res.status(404).render('login',{error:"Email or password is incorrect"});
+
+        //CHECKING HASHED PASSWORD
+        var validPass = bcrypt.compareSync(req.body.password, result.password)
+        if(validPass) {
+            const maxAge = 1000*60*30
+            const token = jwt.sign({id:result._id},process.env.ACCESS_TOKEN,{expiresIn:maxAge/1000})
+            res.cookie('jwt',token,{httpOnly:true,maxAge:maxAge})
+            res.redirect('/')
+        }
+        //INCORRECT PASSWORD
+        else return res.status(404).render('login',{error:"Email or password is incorrect"});
+
+        
+    })
+})
+
+module.exports = router

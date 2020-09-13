@@ -12,13 +12,27 @@ body{
 
 main{
     background-image: linear-gradient(to top left, rgb(214, 214, 214), white);
-    padding: 4rem 0;
+    padding: 4rem 1rem;
     box-shadow: 0 0 50px 5px rgba(0, 0, 0, 0.397);
     border-radius: 0.3rem;
     border: solid var(--gray);
     border-width: 0 0 0 1rem;
+    margin: 1rem;
+    width: min(25rem , calc(100% - 1rem));
 }
-
+main img{
+    height: 4rem;
+    margin-right: 1rem;
+}
+main .buttons{
+    width: 100%;
+}
+main a{
+    flex-grow: 1;
+    flex-basis: 0;
+    padding: 1rem;
+    margin: 0 0.5rem;
+}
 .logo{
     margin-bottom: 4rem;
     font-size: 2rem;

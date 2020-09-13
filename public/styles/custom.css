@@ -68,9 +68,6 @@
     border: solid var(--lightblue) 4px;
     color: var(--gray);
     position: relative; 
-    padding: 1rem;
-    width: 10rem;
-    margin: 0 1rem;
     z-index: 1;
     text-transform: uppercase;
     overflow: hidden;
