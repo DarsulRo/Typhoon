@@ -4,10 +4,10 @@ var verify = require('./routes/verifyJWT')
 const cookieParser = require('cookie-parser')
 
 //Mongo Connection
-const {MongoConnection} = require('./mongoConnection')
+const {Mongo} = require('./mongoConnection.js')
 async function connectMongo(){
-    await MongoConnection.connectToMongo();
-    DB = MongoConnection.db.db('typhoon')
+    await Mongo.connectToMongo();
+    DB = Mongo.db.db('typhoon')
     console.log('Connected to the Typhoon database')
 }
 connectMongo()
@@ -23,6 +23,7 @@ server.use(cookieParser())
 
 //IMPORT ROUTES
 const authRoute = require('./routes/auth');
+const { ObjectID, ObjectId } = require('mongodb')
 
 //ROUTE MIDDLEWARE
 server.use('',authRoute)
@@ -30,7 +31,11 @@ server.use('',authRoute)
 
 
 server.get('/',verify,function(req,res){
-    res.render('home')
+    Mongo.db.db('typhoon').collection('users').findOne({_id:ObjectId(req.userID)},{projection:{password:0}},function(error,user){
+        if(error) return res.status(404);
+        return res.render('home',{user})
+    })
+    
 })
 
 

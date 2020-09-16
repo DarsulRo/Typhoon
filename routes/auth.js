@@ -1,5 +1,5 @@
 var router = require('express').Router()
-var {MongoConnection} = require('../mongoConnection')
+var {Mongo} = require('../mongoConnection')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const env = require('dotenv')
@@ -10,7 +10,7 @@ router.get('/register',(req,res)=>{
     res.render('register',{error:null})
 })
 router.post('/register', function(req,res){
-    MongoConnection.db.db('typhoon').collection('users').findOne({email:req.body.email},function(err,result){
+    Mongo.db.db('typhoon').collection('users').findOne({email:req.body.email},function(err,result){
         if(err) throw err;
         else if(result == null){
             
@@ -19,7 +19,7 @@ router.post('/register', function(req,res){
             const hashedPass = bcrypt.hashSync(req.body.password1,salt)
 
             //INSERT USER
-            MongoConnection.db.db('typhoon').collection('users').insertOne({email: req.body.email, username: req.body.username, password: hashedPass},function(err2,result2){
+            Mongo.db.db('typhoon').collection('users').insertOne({email: req.body.email, username: req.body.username, password: hashedPass},function(err2,result2){
                 if(err2) throw err2;
                 else{
                     res.redirect('/')
@@ -29,6 +29,7 @@ router.post('/register', function(req,res){
         else{
             //EMAIL ALREADY USED
             res.status(404).render('register',{error: "This email is unavailable"})
+            
         }
     })
 })
@@ -39,7 +40,7 @@ router.get('/login',(req, res)=>{
     res.render('login',{error:null})
 })
 router.post('/login',(req,res)=>{
-    MongoConnection.db.db('typhoon').collection('users').findOne({email:req.body.email},function(err,result){
+    Mongo.db.db('typhoon').collection('users').findOne({email:req.body.email},function(err,result){
         //EMAIL NOT FOUND
         if(err||!result) return res.status(404).render('login',{error:"Email or password is incorrect"});
 
@@ -56,6 +57,12 @@ router.post('/login',(req,res)=>{
 
         
     })
+})
+
+
+router.get('/logout',(req,res)=>{
+    res.cookie('jwt',"You're not logged in buddy",{maxAge:1})
+    res.redirect('/')
 })
 
 module.exports = router

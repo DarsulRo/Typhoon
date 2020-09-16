@@ -3,9 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MAIN PAGE</title>
+    <link rel="stylesheet" href="styles/root.css">
+    <link rel="stylesheet" href="styles/home.css">
+    <link rel="shortcut icon" href="public/favicon.ico" type="image/x-icon">
+    <title>Typhoon</title>
 </head>
 <body>
-    MAIN PAGE BABY
+    
+    <header class="flex-row">
+        <a href="/" class="flex-row logos">
+            <img src="../public/res/Typhoon.svg" alt="">
+            <h2>Typhoon</h2>
+        </a>
+        <div class="flex-row buttons">
+            <p><span><%=user.username%></span></p>
+            <a class="logout C-underline" href="/logout">Logout</a>
+        </div>
+    </header>
+    <main class="flex-row">
+        <section id="posts" class="flex-column">
+            <nav class="flex-row">
+                <a href="#" class="C-underline" id="create-button">Create post</a>
+                <a href="#" class="C-underline">All posts</a>
+                <a href="#" class="C-underline">My posts</a>
+                <a href="#" class="C-underline">Saved posts</a>
+            </nav>
+
+            <div id="create-form" class="flex-row">
+                <form action="/post" method="POST">
+                    <textarea name="message" cols="10" rows="1"></textarea>
+                </form>
+            </div>
+
+            <div id="posts-div" class="">
+                <%for(var i=1;i<=6;i++){%>
+                    <div class="flex-column POST">
+                        <div class="user flex-row">
+                            <img class="avatar" src="../public/res/favicon.png" alt="">
+                            <p class="name">Username</p>
+                        </div>
+                        <div class="content flex-column">
+                            <% if(i%2==0){%>
+                                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quo vel modi culpa temporibus maxime suscipit omnis, neque dolorum harum dicta cupiditate facere? Dignissimos alias hic sed quibusdam? Nihil, molestias iusto.</p>
+                            <%}%> 
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor, optio dolore qui odio perferendis asperiores autem maiores neque facere placeat!</p>
+                        </div>
+                        <div class="interact flex-row">
+                            <a href="" class="C-underline">Like</a>
+                            <a href="" class="C-underline">Dislike</a>
+                            <a href="" class="C-underline">Save</a>
+                        </div>
+                    </div>
+                <%}%>
+            </div>
+        </section>
+        <aside class="flex-column">
+        
+            
+        </aside>
+    </main>
 </body>
+<script>
+    let create_button = document.getElementById('create-button')
+    let create_form = document.getElementById('create-form')
+
+    create_button.addEventListener('click',function(ev){
+        create_form.classList.toggle('show')
+    })
+</script>
 </html>

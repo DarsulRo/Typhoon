@@ -1,5 +1,5 @@
 const MongoClient = require('mongodb').MongoClient
-class MongoConnection {
+class Mongo {
    
     static async connectToMongo() {
         if (this.db) return this.db
@@ -8,11 +8,11 @@ class MongoConnection {
     }
 }
 
-MongoConnection.db = null
-MongoConnection.url = 'mongodb://localhost:27017'
-MongoConnection.options = {
+Mongo.db = null
+Mongo.url = 'mongodb://localhost:27017'
+Mongo.options = {
     useNewUrlParser:    true,
     useUnifiedTopology: true,
 }
 
-module.exports = { MongoConnection }
+module.exports = { Mongo }
