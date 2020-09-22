@@ -16,12 +16,17 @@
             <h2>Typhoon</h2>
         </a>
         <div class="flex-row buttons">
-            <p><span><%=user.username%></span></p>
+            <a class="flex-row">
+                <img class="avatar" src="../public/res/favicon.png" alt="">
+                <span class="display-name"><%=user.displayname%></span>
+            </a>
             <a class="logout C-underline" href="/logout">Logout</a>
         </div>
     </header>
+
     <main class="flex-row">
         <section id="posts" class="flex-column">
+
             <nav class="flex-row">
                 <a href="#" class="C-underline" id="create-button">Create post</a>
                 <a href="#" class="C-underline">All posts</a>
@@ -29,32 +34,52 @@
                 <a href="#" class="C-underline">Saved posts</a>
             </nav>
 
-            <div id="create-form" class="flex-row">
-                <form action="/post" method="POST">
+
+            <div id="create-post" class="flex-column">
+                <form class="flex-column" action="/post" method="POST">
+                    <div class="post-header flex-row">
+                        <div class="user flex-row">
+                            <a class="avatar"><img class="" src="../public/res/favicon.png" alt=""></a>
+                            <a class="display-name">Create post as <h4><%=user.displayname%></h4></a>
+                        </div>
+                    </div>
                     <textarea name="message" cols="10" rows="1"></textarea>
+                    <div class="subsol flex-row">  
+                        <button type="submit">POST</button>
+                    </div>
                 </form>
             </div>
 
+
             <div id="posts-div" class="">
-                <%for(var i=1;i<=6;i++){%>
+                <%posts.forEach(function(post){%>
                     <div class="flex-column POST">
-                        <div class="user flex-row">
-                            <img class="avatar" src="../public/res/favicon.png" alt="">
-                            <p class="name">Username</p>
+                        <div class="post-header flex-row">
+                            <div class="user flex-row">
+                                <a href="/user/<%=post.username%>" class="avatar"><img class="" src="../public/res/favicon.png" alt=""></a>
+                                <a href="/user/<%=post.username%>" class="display-name"><%=post.displayname%></a>
+                                <a href="/user/<%=post.username%>" class="username">@<%=post.username%></a>
+                            </div>
+                            <div class="time">
+                                <p>5 hours ago</p>
+                            </div>
                         </div>
                         <div class="content flex-column">
-                            <% if(i%2==0){%>
-                                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quo vel modi culpa temporibus maxime suscipit omnis, neque dolorum harum dicta cupiditate facere? Dignissimos alias hic sed quibusdam? Nihil, molestias iusto.</p>
-                            <%}%> 
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor, optio dolore qui odio perferendis asperiores autem maiores neque facere placeat!</p>
+                            <p><%=post.content%></p>
                         </div>
                         <div class="interact flex-row">
-                            <a href="" class="C-underline">Like</a>
-                            <a href="" class="C-underline">Dislike</a>
-                            <a href="" class="C-underline">Save</a>
+                            <div class="like flex-row">
+                                <a href="" class="C-underline">Like</a>
+                                <a href="" class="C-underline">Dislike</a>
+                                <a href="" class="C-underline">Save</a>
+                            </div>
+                            <div class="edit flex-row">
+                                <a href="#"><img src="../public/res/edit.png" alt=""></a>
+                                <a href="#"><img src="../public/res/delete.png" alt=""></a>
+                            </div>
                         </div>
                     </div>
-                <%}%>
+                <%})%>
             </div>
         </section>
         <aside class="flex-column">
@@ -65,10 +90,10 @@
 </body>
 <script>
     let create_button = document.getElementById('create-button')
-    let create_form = document.getElementById('create-form')
+    let create_post = document.getElementById('create-post')
 
     create_button.addEventListener('click',function(ev){
-        create_form.classList.toggle('show')
+        create_post.classList.toggle('show')
     })
 </script>
 </html>
