@@ -66,6 +66,7 @@
                         </div>
                         <div class="content flex-column">
                             <p><%=post.content%></p>
+                            
                         </div>
                         <div class="interact flex-row">
                             <div class="like flex-row">
@@ -73,10 +74,12 @@
                                 <a href="" class="C-underline">Dislike</a>
                                 <a href="" class="C-underline">Save</a>
                             </div>
+                            <% if(post.username == user.username){ %> 
                             <div class="edit flex-row">
                                 <a href="#"><img src="../public/res/edit.png" alt=""></a>
-                                <a href="#"><img src="../public/res/delete.png" alt=""></a>
+                                <a href="/deletepost/<%=post._id%>"><img src="../public/res/delete.png" alt=""></a>
                             </div>
+                            <% } %> 
                         </div>
                     </div>
                 <%})%>

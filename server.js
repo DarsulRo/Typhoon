@@ -55,7 +55,7 @@ server.post('/post',verify,function(req,res){
             content: req.body.message,
             date: new Date().toLocaleString(),
         },function(err,result){
-            if(err) res.status(500).send(err)
+            if(err) return res.status(500).send(err)
             else{
                 res.redirect('/')
             }
@@ -63,6 +63,19 @@ server.post('/post',verify,function(req,res){
 
     })
      
+})
+server.get('/deletepost/:postID',verify,function(req,res){
+    Mongo.db.db('typhoon').collection('users').findOne({_id:ObjectId(req.userID)},function(userError,user){
+        if(userError) return res.status(401);
+
+        Mongo.db.db('typhoon').collection('posts').deleteOne(
+            {_id:ObjectId(req.params.postID), username:user.username},
+            function(deleteError,result){
+
+                if(deleteError) return res.status(404);
+                return res.redirect('/')
+        })
+    })
 })
 server.listen(8000,function(){
     console.log("Listening on port 8000")
