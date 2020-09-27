@@ -37,7 +37,7 @@ header .buttons a{
     margin-left: 1.5rem;
 }
 header .buttons span{
-    font-weight: 800;
+    font-family: Exo-Medium;
     font-size: 1.25rem;
 }
 header .buttons .logout{
@@ -81,12 +81,16 @@ section#posts nav >a::after{
 }
 
 
+
 #create-post{
     width: 100%;
     background-color: var(--mainwhite);
     border-radius: 10px;
     display: none;
     margin-bottom: 2rem;
+}
+#create-post .create-as{
+    margin-left: 1rem;
 }
 #create-post.show{
     display: flex;
@@ -111,11 +115,12 @@ section#posts nav >a::after{
 }
 #create-post .subsol{
     width: 100%;
-    justify-content: flex-end;
+    justify-content: space-between;
     background-color: rgb(105, 105, 105);
     border-radius: 0 0 10px 10px;
     padding: 0.5rem;
 }
+
 #create-post button{
     padding: 0.5rem 1rem;
     display: flex;
@@ -126,7 +131,10 @@ section#posts nav >a::after{
     cursor: pointer;
     background-color: var(--mainwhite);
 }
-
+.error-message{
+    color: white;
+    white-space: pre;
+}
 
 /*ALL POSTS*/
 #posts-div{
@@ -140,13 +148,23 @@ section#posts nav >a::after{
     padding: 1rem;
     background-color: var(--mainwhite);
 }
+.POST a{
+    cursor: pointer;
+}
 .post-header{
     width: 100%;
     justify-content: space-between;
     flex-wrap: wrap-reverse;
 }
+
 .display-name{
     margin-left: 1rem;
+    color: var(--gray);
+    font-family: Exo-Medium;
+    font-weight: 400;
+}
+a.display-name:hover{
+    text-decoration: solid underline;
 }
 .post-header .username{
     color: gray;
@@ -157,25 +175,35 @@ section#posts nav >a::after{
     color: var(--lightblue);
     text-decoration: underline;
 }
+.post-header .time{
+    flex-grow: 1;
+}
 .post-header .time p{
+    float: right;
     color: gray;
 }
 .content{
     margin: 2rem 0;
-    margin-left: 2rem;
     justify-content: flex-start;
     align-items: flex-start;
-    width: calc(100% - 2rem);
+    width: 100%;
+    white-space: pre;
 }
 .interact{
-    width: calc(100% - 2rem);
+    width: 100%;
     justify-content: space-between;
-    margin-left: 2rem;
+    flex-wrap: wrap;
 }
 .interact .like a{
     margin-right: 1rem;
     color: black;
-    padding: 0.5rem;
+    padding: 0.25rem 0;
+    height: 2rem;
+    width: 2rem;
+    text-align: center;
+}
+.interact .like img{
+    height: 100%;
 }
 .interact .edit a{
     margin: 0 0.25rem;
@@ -187,11 +215,42 @@ section#posts nav >a::after{
     transition: all 0.15s ease 0s;
 }
 .interact .edit img:hover{
-    box-shadow: 0 0 5px 1px rgba(128, 128, 128, 0.473);
-    border: solid gray 2px;
-    border-radius: 5px;
+    border: solid var(--gray) 2px;
+    border-radius: 10px;
+}
+.confirm-delete{
+    transition: height 0.3s ease;
+    margin-top: 1rem;
+    min-width: 100%;
+    justify-content: space-between;
+    overflow: hidden;
+    height: 0;
+    padding-left: min(2rem, 5%);
 }
 
+.confirm-delete.drop{
+    height: 2.5rem;
+}
+.confirm-delete p{
+    color: gray;
+}
+.confirm-delete a{
+    margin: 0 0.25rem;
+    border: solid gray 2px;
+    border-radius: 5px;
+    padding: 0.25rem;
+    color: var(--gray);
+    font-weight: 600;
+}
+.confirm-delete .delete{
+    color: var(--red);
+    border-color: var(--red);
+    transition: all 0.2s ease;
+}
+.confirm-delete .delete:hover{
+    color: var(--mainwhite);
+    background-color: var(--red);
+}
 /*ASIDE*/
 aside{
     width: min(30%, 20rem);
@@ -203,13 +262,20 @@ aside{
 }
 
 @media(orientation:portrait){
+    html{
+        font-size: 0.85rem;
+    }
     aside.flex-column{
         display: none;
     }
     header .logos{
         display: none;
     }
+    header .buttons{
+        width: 100%;
+        justify-content: space-between;
+    }
     section#posts{
-        width: 90%;
+        width: 100%;
     }
 }

@@ -10,27 +10,34 @@ router.get('/register',(req,res)=>{
     res.render('register',{error:null})
 })
 router.post('/register', function(req,res){
-    Mongo.db.db('typhoon').collection('users').findOne({email:req.body.email},function(err,result){
-        if(err) throw err;
-        else if(result == null){
-            
-            //HASH PASSWORD
-            const salt =  bcrypt.genSaltSync(10)
-            const hashedPass = bcrypt.hashSync(req.body.password1,salt)
+    Mongo.db.db('typhoon').collection('users').findOne({
+        "$or":[{
+                email:req.body.email
+            },{
+                username: req.body.username
+            }]
+        },function(err,result){
 
-            //INSERT USER
-            Mongo.db.db('typhoon').collection('users').insertOne({email: req.body.email, username: req.body.username,displayname:req.body.displayname, password: hashedPass},function(err2,result2){
-                if(err2) throw err2;
-                else{
-                    res.redirect('/')
-                }
-            })
-        }
-        else{
-            //EMAIL ALREADY USED
-            res.status(404).render('register',{error: "This email is unavailable"})
-            
-        }
+            if(err) throw err;
+            else if(result == null){
+                
+                //HASH PASSWORD
+                const salt =  bcrypt.genSaltSync(10)
+                const hashedPass = bcrypt.hashSync(req.body.password1,salt)
+
+                //INSERT USER
+                Mongo.db.db('typhoon').collection('users').insertOne({email: req.body.email, username: req.body.username,displayname:req.body.displayname, password: hashedPass},function(err2,result2){
+                    if(err2) throw err2;
+                    else{
+                        res.redirect('/')
+                    }
+                })
+            }
+            else{
+                //EMAIL ALREADY USED
+                res.status(404).render('register',{error: "This email/username is unavailable"})
+                
+            }
     })
 })
 

@@ -3,14 +3,18 @@ const server  = express()
 var verify = require('./routes/verifyJWT')
 const cookieParser = require('cookie-parser')
 
-//Mongo Connection
+//Create Server + Mongo connection
 const {Mongo} = require('./mongoConnection.js')
-async function connectMongo(){
+async function createAndConnect(){
     await Mongo.connectToMongo();
     DB = Mongo.db.db('typhoon')
     console.log('Connected to the Typhoon database')
+
+    server.listen(8000,function(){
+        console.log("Listening on port 8000")
+    })
 }
-connectMongo()
+createAndConnect()
 
 //SERVER MIDDLEWARE
 server.set('view engine','ejs')
@@ -23,12 +27,14 @@ server.use(cookieParser())
 
 //IMPORT ROUTES
 const authRoute = require('./routes/authRoute');
+const postRoute = require('./routes/postRoute')
+const userRoute = require('./routes/userRoute')
 const { ObjectID, ObjectId } = require('mongodb')
 
 //ROUTE MIDDLEWARE
+server.use('',postRoute)
 server.use('',authRoute)
-
-
+server.use('',userRoute)
 
 server.get('/',verify,function(req,res){
     Mongo.db.db('typhoon').collection('users').findOne({_id:ObjectId(req.userID)},{projection:{password:0}},function(error,user){
@@ -42,44 +48,7 @@ server.get('/',verify,function(req,res){
     
 })
 
-server.post('/post',verify,function(req,res){
 
-    Mongo.db.db('typhoon').collection('users').findOne({_id:ObjectId(req.userID)},{projection:{_id:0,username:1,displayname:1}},function(error1,user){
-    
-        if(error1) return res.status(404);
-
-        Mongo.db.db('typhoon').collection('posts').insertOne({
-            userID: req.userID,
-            username: user.username,
-            displayname: user.displayname,
-            content: req.body.message,
-            date: new Date().toLocaleString(),
-        },function(err,result){
-            if(err) return res.status(500).send(err)
-            else{
-                res.redirect('/')
-            }
-         })
-
-    })
-     
-})
-server.get('/deletepost/:postID',verify,function(req,res){
-    Mongo.db.db('typhoon').collection('users').findOne({_id:ObjectId(req.userID)},function(userError,user){
-        if(userError) return res.status(401);
-
-        Mongo.db.db('typhoon').collection('posts').deleteOne(
-            {_id:ObjectId(req.params.postID), username:user.username},
-            function(deleteError,result){
-
-                if(deleteError) return res.status(404);
-                return res.redirect('/')
-        })
-    })
-})
-server.listen(8000,function(){
-    console.log("Listening on port 8000")
-})
 
 function logger(req,res,next){
     console.log("["+req.method+"] Request made at [" + new Date().toLocaleTimeString() + "] by ["  + req.ip + "] for [" +req.url + "]")

@@ -5,11 +5,16 @@
     font-family: Exo-Light;
     src: url('../res/Exo-Light.otf');
 }
+@font-face{
+    font-family: Exo-Medium;
+    src: url('/public/res/Exo-Medium.otf')
+}
 :root{
     --mainwhite: #eeffff;
     --lightblue: #44bbee;
     --darkblue: #0088bb;
     --gray: #333344;
+    --red: rgb(240, 0, 0);
 }
 
 *{

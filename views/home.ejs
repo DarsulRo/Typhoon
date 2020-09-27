@@ -36,15 +36,19 @@
 
 
             <div id="create-post" class="flex-column">
-                <form class="flex-column" action="/post" method="POST">
+                <form id="create-form" class="flex-column" action="/post" method="POST">
                     <div class="post-header flex-row">
                         <div class="user flex-row">
                             <a class="avatar"><img class="" src="../public/res/favicon.png" alt=""></a>
-                            <a class="display-name">Create post as <h4><%=user.displayname%></h4></a>
+                            <a class="create-as flex-row">
+                                Create post as  <h4 class="display-name "> <%=user.displayname%></h4>
+                            </a>
                         </div>
                     </div>
-                    <textarea name="message" cols="10" rows="1"></textarea>
+                    <textarea id="create-post-textarea" name="message" cols="10" rows="1"></textarea>
+                    
                     <div class="subsol flex-row">  
+                        <p class="error-message"></p>
                         <button type="submit">POST</button>
                     </div>
                 </form>
@@ -61,7 +65,7 @@
                                 <a href="/user/<%=post.username%>" class="username">@<%=post.username%></a>
                             </div>
                             <div class="time">
-                                <p>5 hours ago</p>
+                                <p><%=post.date.toLocaleString()%></p>
                             </div>
                         </div>
                         <div class="content flex-column">
@@ -70,17 +74,30 @@
                         </div>
                         <div class="interact flex-row">
                             <div class="like flex-row">
-                                <a href="" class="C-underline">Like</a>
-                                <a href="" class="C-underline">Dislike</a>
-                                <a href="" class="C-underline">Save</a>
+                                <a href="" class="C-underline"><img src="../public/res/like.png" ></a>
+                                <a href="" class="C-underline"><img src="../public/res/dislike.png"></a>
+                                <a href="" class="C-underline"><img src="../public/res/save.png"></a>
                             </div>
                             <% if(post.username == user.username){ %> 
                             <div class="edit flex-row">
                                 <a href="#"><img src="../public/res/edit.png" alt=""></a>
-                                <a href="/deletepost/<%=post._id%>"><img src="../public/res/delete.png" alt=""></a>
+                                <a onclick="confirmDeleteBin(event)" ><img src="../public/res/delete.png" alt=""></a>
                             </div>
+                            
                             <% } %> 
                         </div>
+                        <% if(post.username == user.username){ %> 
+                            <div class="confirm-delete flex-row">
+                                <p>
+                                    
+                                </p>
+                                <div class="flex-row">
+                                    <a onclick="confirmDeleteCancel(event)" class="cancel">CANCEL</a>
+                                    <a class="delete" href="/deletepost/<%=post._id%>">DELETE</a>
+                                </div>
+                                
+                            </div>
+                        <% } %> 
                     </div>
                 <%})%>
             </div>
@@ -94,9 +111,31 @@
 <script>
     let create_button = document.getElementById('create-button')
     let create_post = document.getElementById('create-post')
+    let create_form = document.getElementById('create-form')
+    let textarea = document.getElementById('create-post-textarea')
+    let error_message = document.getElementsByClassName('error-message')[0]
 
     create_button.addEventListener('click',function(ev){
         create_post.classList.toggle('show')
     })
+    create_form.addEventListener('submit',function(ev){
+        
+        
+        if(textarea.value != ''){
+            
+        }
+        else{
+            error_message.innerHTML="The post can not be empty."
+            ev.preventDefault()
+        }
+        
+    })
+    function confirmDeleteBin(ev){
+        ev.currentTarget.parentElement.parentElement.nextElementSibling.classList.toggle('drop')
+    }
+    function confirmDeleteCancel(ev){
+        ev.currentTarget.parentElement.parentElement.classList.toggle('drop')
+    }
+
 </script>
 </html>
