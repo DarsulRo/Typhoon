@@ -10,19 +10,8 @@
 </head>
 <body>
     
-    <header class="flex-row">
-        <a href="/" class="flex-row logos">
-            <img src="../public/res/Typhoon.svg" alt="">
-            <h2>Typhoon</h2>
-        </a>
-        <div class="flex-row buttons">
-            <a class="flex-row">
-                <img class="avatar" src="../public/res/favicon.png" alt="">
-                <span class="display-name"><%=user.displayname%></span>
-            </a>
-            <a class="logout C-underline" href="/logout">Logout</a>
-        </div>
-    </header>
+    <%-include ('partials/header',{user})%>
+    
 
     <main class="flex-row">
         <section id="posts" class="flex-column">
@@ -73,31 +62,29 @@
                             
                         </div>
                         <div class="interact flex-row">
+
                             <div class="like flex-row">
+                                <p class="likes-count">10</p>
                                 <a href="" class="C-underline"><img src="../public/res/like.png" ></a>
                                 <a href="" class="C-underline"><img src="../public/res/dislike.png"></a>
-                                <a href="" class="C-underline"><img src="../public/res/save.png"></a>
                             </div>
-                            <% if(post.username == user.username){ %> 
-                            <div class="edit flex-row">
-                                <a href="#"><img src="../public/res/edit.png" alt=""></a>
-                                <a onclick="confirmDeleteBin(event)" ><img src="../public/res/delete.png" alt=""></a>
+
+                            <div class="options">
+                                <a onclick="showOptions(event)"><img src="../public/res/more.png" alt=""></a>
+                                <ul class="hided flex-column">
+
+                                    <li class="C-underline flex-row"><img src="../public/res/save.png" alt=""><a href="">Save</a></li>
+                                    <li class="C-underline flex-row"><img src="../public/res/report.png" alt=""><a href="">Report</a></li>
+                                    <%if(post.username == user.username){%> 
+                                        <li class="C-underline flex-row"><img src="../public/res/edit.png" alt=""><a href="">Edit</a></li>
+                                        <li class="C-underline flex-row"><img src="../public/res/delete.png" alt=""><a href="">Delete</a></li>
+                                    <%}%>
+                                </ul>
                             </div>
                             
-                            <% } %> 
+                            
                         </div>
-                        <% if(post.username == user.username){ %> 
-                            <div class="confirm-delete flex-row">
-                                <p>
-                                    
-                                </p>
-                                <div class="flex-row">
-                                    <a onclick="confirmDeleteCancel(event)" class="cancel">CANCEL</a>
-                                    <a class="delete" href="/deletepost/<%=post._id%>">DELETE</a>
-                                </div>
-                                
-                            </div>
-                        <% } %> 
+                        
                     </div>
                 <%})%>
             </div>
@@ -109,6 +96,16 @@
     </main>
 </body>
 <script>
+    window.addEventListener('click',hideOptions)
+
+    function hideOptions(){
+        var els = document.getElementsByClassName("options");
+        Array.prototype.forEach.call(els, function(item) {
+            item.lastElementChild.classList.add('hided')
+        })
+
+    }
+
     let create_button = document.getElementById('create-button')
     let create_post = document.getElementById('create-post')
     let create_form = document.getElementById('create-form')
@@ -117,9 +114,9 @@
 
     create_button.addEventListener('click',function(ev){
         create_post.classList.toggle('show')
+        
     })
     create_form.addEventListener('submit',function(ev){
-        
         
         if(textarea.value != ''){
             
@@ -130,12 +127,14 @@
         }
         
     })
-    function confirmDeleteBin(ev){
-        ev.currentTarget.parentElement.parentElement.nextElementSibling.classList.toggle('drop')
+    function showOptions(event){
+        var hasClass= event.currentTarget.nextElementSibling.classList.contains('hided');
+        hideOptions()
+        event.currentTarget.nextElementSibling.classList.toggle('hided')
+        if(!hasClass)event.currentTarget.nextElementSibling.classList.toggle('hided')
+        event.stopPropagation()
     }
-    function confirmDeleteCancel(ev){
-        ev.currentTarget.parentElement.parentElement.classList.toggle('drop')
-    }
+   
 
 </script>
 </html>

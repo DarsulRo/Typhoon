@@ -1,0 +1,60 @@
+<style>
+    header.flex-row{
+    justify-content: space-between;
+    min-width: 100%;
+    background-color: var(--mainwhite);
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border-radius: 0 0 10px 10px;
+    flex-wrap: wrap;
+    border-bottom: solid 0.3rem var(--gray);
+    position: sticky;
+    top:0;
+    z-index: 10;
+}
+header .logos{
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+header .logos img{
+    height: 2.5rem;
+    margin-right: 0.75rem;
+}
+header .logos h2{
+    font-weight: 100;
+    font-size: 1.5rem;
+    color: var(--gray);
+}
+header .buttons{
+    flex-wrap: wrap;
+}
+header .buttons>*{
+    font-size: 1.15rem;
+}
+header .buttons a{
+    margin-left: 1.5rem;
+}
+header .buttons .user-info > *{
+    margin: 0 0.25rem;
+}
+header .buttons span{
+    font-family: Exo-Medium;
+    font-size: 1.25rem;
+}
+header .buttons .logout{
+    color:var(--gray);
+}
+</style>
+<header class="flex-row">
+    <a href="/" class="flex-row logos">
+        <img src="../public/res/Typhoon.svg" alt="">
+        <h2>Typhoon</h2>
+    </a>
+    <div class="flex-row buttons">
+        <a class="user-info flex-row">
+            <img src="../public/res/favicon.png" alt="">
+            <span><%=user.displayname%></span>
+        </a>
+        <a class="logout C-underline" href="/logout">Logout</a>
+    </div>
+</header>
