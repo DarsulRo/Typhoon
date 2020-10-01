@@ -42,7 +42,7 @@ server.get('/',verify,function(req,res){
 
         Mongo.db.db('typhoon').collection('posts').find({}).sort({date:-1}).toArray(function(err,posts){
             if(err) return res.status(400);
-            return res.render('home',{user, posts})
+            return res.render('home',{logged_user:user, posts})
         })
     })
     

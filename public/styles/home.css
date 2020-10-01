@@ -4,48 +4,102 @@ body{
     background-attachment: fixed;
     overflow-x: hidden;
 }
-header.flex-row{
-    justify-content: space-between;
-    min-width: 100%;
+#overlay{
+    top:-50%;
+    left:0;
+    width: 100%;
+    height: 200%;
+    position: fixed;
+    z-index: 5;
+    background-color: rgba(0, 115, 160, 0.452);
+}
+.popup{
+    display: none;
+    width: 30rem;
+    max-width: 95%;
     background-color: var(--mainwhite);
+    border: solid var(--gray) 0.15rem;
+    border-radius: 10px;
     padding: 1rem;
-    margin-bottom: 1rem;
-    border-radius: 0 0 10px 10px;
-    flex-wrap: wrap;
-    border-bottom: solid 0.3rem var(--gray);
-    position: sticky;
-    top:0;
-    z-index: 10;
 }
-header .logos{
-    flex-wrap: wrap;
-    justify-content: space-between;
+.popup > *{
+    width: 100%;
+    margin: 1rem 0;
 }
-header .logos img{
-    height: 3rem;
-    margin-right: 0.75rem;
-}
-header .logos h2{
-    font-weight: 100;
-    font-size: 2rem;
+.popup .header{
     color: var(--gray);
+    font-size: 1.5rem;
 }
-header .buttons{
-    flex-wrap: wrap;
-}
-header .buttons>*{
-    font-size: 1.15rem;
-}
-header .buttons a{
-    margin-left: 1.5rem;
-}
-header .buttons span{
+.popup.header p{
     font-family: Exo-Medium;
-    font-size: 1.25rem;
 }
-header .buttons .logout{
-    color:var(--gray);
+.popup .button{
+    transition: all 0.3s ease;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    border: solid 0.2rem var(--gray);
+    border-radius: 5px;
+    color: var(--gray);
+    font-family: Exo-Medium;
+    width: 6rem;
+    display: flex;
+    justify-content: center;
 }
+
+#deletePOPUP .content{
+    max-height: 20rem;
+    overflow-y: auto;
+}
+#deletePOPUP .content p{
+    padding: 1rem;
+    padding-right: 0;
+    background-color: #e0f0f0;
+    width: 100%;
+    font-size: 1rem;
+    white-space: normal;
+    border-left: solid 0.5rem var(--gray);
+    border-radius: 0 4px 4px 0;
+}
+#deletePOPUP .button#confirmDelete{
+    color: var(--red);
+    border-color: var(--red);
+}
+#deletePOPUP .button#confirmDelete:hover{
+    background-color: var(--red);
+    color: var(--mainwhite);
+}
+
+#editPOPUP{
+    display: flex;
+    width: 50rem;
+}
+#editPOPUP textarea{
+    width: 100%;
+    height: auto;
+    height: 10rem;
+    resize: none;
+    border: 0;
+    border: solid 0.1rem var(--gray);
+    border-bottom: solid 1rem var(--gray);
+    outline: none;
+    padding: 1.5rem;
+    text-align: left;
+    font-size: 1rem;
+    background-color: #e0f0f0;
+    letter-spacing: 1px;
+    
+}
+#editPOPUP #confirmEdit{
+    border-color: var(--darkblue);
+    color: var(--darkblue);
+}
+#editPOPUP #confirmEdit:hover{
+    background-color: var(--darkblue);
+    color: var(--mainwhite);
+}
+
+
+
 main.flex-row{
     width: 94%;
     margin: 0 3%;
@@ -185,13 +239,14 @@ a.display-name:hover{
     float: right;
     color: gray;
 }
-.content{
+.POST .content{
     margin: 2rem 0;
     justify-content: flex-start;
     align-items: flex-start;
     width: 100%;
     white-space: pre;
     font-size: 1.25rem;
+    white-space: pre-wrap;
 }
 .interact{
     width: 100%;
@@ -213,7 +268,6 @@ a.display-name:hover{
 .interact .like img{
     height: 100%;
 }
-
 .interact .options{
     position: relative;
 }
@@ -230,7 +284,7 @@ a.display-name:hover{
     display: none;
 }
 
-.interact .options ul li{
+.interact .options ul a{
     cursor: pointer;
     padding: 0.25rem 0.5rem;
     margin: 0.20rem 0;
@@ -249,7 +303,7 @@ a.display-name:hover{
     height: 1.75rem;
     margin-right: 0.5rem;
 }
-.interact .options ul a{
+.interact .options ul p{
     color: var(--gray);
     font-family: Exo-Medium;
 }

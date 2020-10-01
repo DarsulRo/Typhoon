@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../public/styles/root.css">
-    
-    <title><%=user.displayname%> | Typhoon</title>
+    <link rel="stylesheet" href="../public/styles/profile.css">
+    <title><%=req_user.displayname%> | Typhoon</title>
 </head>
 <body>
     <%- include ('partials/header.ejs') %>
-    <%=JSON.stringify(user)%>
+    <%=JSON.stringify(req_user)%>
 </body>
 </html>

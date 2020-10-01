@@ -1,18 +1,15 @@
 var router = require('express').Router()
 var {Mongo} = require('../mongoConnection')
 var verify = require('./verifyJWT')
-const { ObjectID, ObjectId, Server } = require('mongodb')
+const { ObjectId } = require('mongodb')
 
 
-router.get('/user/:userID',verify,function(req,res){
+router.get('/user/:username',verify, async function(req,res){
 
-    
-    Mongo.db.db('typhoon').collection('users').findOne({username:req.params.userID},{projection:{password:0}},function(userError,user){
-        if(userError) return res.status(404).send(userError)
-        res.render('profile',{user})
-    })
-
-
+    var req_user = await Mongo.db.db('typhoon').collection('users').findOne({username:req.params.username},{projection:{_id:0,password:0}})
+    var logged_user = await Mongo.db.db('typhoon').collection('users').findOne({_id:ObjectId(req.userID)},{projection:{_id:0,password:0}})
+  
+    res.render('profile.ejs',{logged_user,req_user})
 })
 
 module.exports= router

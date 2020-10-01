@@ -10,9 +10,35 @@
 </head>
 <body>
     
-    <%-include ('partials/header',{user})%>
-    
+    <%-include ('partials/header')%>
+    <div id="overlay" class="flex-column">
+        <div id="deletePOPUP" class="popup flex-column">
+            <div class="flex-row header"><p>Do you want to delete this post?</p></div>
+            <div class="flex-row content">
+                <p id="deleteContent" class="flex-column">l Lorem, ipsum dolor sit amet consectetur adipisicing elit. Itaque reiciendis exercitationem dolores impedit asperiores illum laboriosam tempora velit officia necessitatibus.</p>
+            </div>
+            <div class="flex-row">
+                <a id="cancelDelete" class="button"> CANCEL</a>
+                <a id="confirmDelete" class="button"> DELETE </a>
+            </div>
+        </div>
 
+        <div id="editPOPUP" class="popup flex-column">
+            <div class="flex-row header"><p>Editing Post</p></div>
+            <form id="editForm" class="flex-row content" action="/editpost" method="post">
+                <textarea name="editedContent" id="editContent" cols="30">
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cum maxime veniam possimus, animi corporis doloribus! Esse est officia placeat aspernatur enim aperiam a impedit praesentium tempore, quo nihil! Aliquid et voluptas culpa magni iure voluptatibus quod nisi cupiditate eligendi ratione, adipisci laboriosam illo officiis rem alias ex quaerat magnam facere?
+                </textarea>
+            </form>
+            <div class="flex-row">
+                <a id="cancelEdit"  class="button">Cancel</a>
+                <a id="confirmEdit" class="button">Edit</a>
+            </div>
+        </div>
+        
+
+    </div>
+    
     <main class="flex-row">
         <section id="posts" class="flex-column">
 
@@ -30,7 +56,7 @@
                         <div class="user flex-row">
                             <a class="avatar"><img class="" src="../public/res/favicon.png" alt=""></a>
                             <a class="create-as flex-row">
-                                Create post as  <h4 class="display-name "> <%=user.displayname%></h4>
+                                Create post as  <h4 class="display-name "> <%=logged_user.displayname%></h4>
                             </a>
                         </div>
                     </div>
@@ -73,11 +99,15 @@
                                 <a onclick="showOptions(event)"><img src="../public/res/more.png" alt=""></a>
                                 <ul class="hided flex-column">
 
-                                    <li class="C-underline flex-row"><img src="../public/res/save.png" alt=""><a href="">Save</a></li>
-                                    <li class="C-underline flex-row"><img src="../public/res/report.png" alt=""><a href="">Report</a></li>
-                                    <%if(post.username == user.username){%> 
-                                        <li class="C-underline flex-row"><img src="../public/res/edit.png" alt=""><a href="">Edit</a></li>
-                                        <li class="C-underline flex-row"><img src="../public/res/delete.png" alt=""><a href="">Delete</a></li>
+                                    <a class="C-underline flex-row"><img src="../public/res/save.png" alt=""><p>Save</p></a>
+                                    <a class="C-underline flex-row"><img src="../public/res/report.png" alt=""><p>Report</p></a>
+                                    <%if(post.username == logged_user.username){%> 
+                                        <a postID="<%=post._id%>"  class="C-underline flex-row">
+                                            <img src="../public/res/edit.png" alt=""><p>Edit</p>
+                                        </a>
+                                        <a postID="<%=post._id%>" onclick="initiatePostDelete(this)" class="C-underline flex-row">
+                                            <img src="../public/res/delete.png" ><p >Delete</p>
+                                        </a>
                                     <%}%>
                                 </ul>
                             </div>
@@ -95,46 +125,5 @@
         </aside>
     </main>
 </body>
-<script>
-    window.addEventListener('click',hideOptions)
-
-    function hideOptions(){
-        var els = document.getElementsByClassName("options");
-        Array.prototype.forEach.call(els, function(item) {
-            item.lastElementChild.classList.add('hided')
-        })
-
-    }
-
-    let create_button = document.getElementById('create-button')
-    let create_post = document.getElementById('create-post')
-    let create_form = document.getElementById('create-form')
-    let textarea = document.getElementById('create-post-textarea')
-    let error_message = document.getElementsByClassName('error-message')[0]
-
-    create_button.addEventListener('click',function(ev){
-        create_post.classList.toggle('show')
-        
-    })
-    create_form.addEventListener('submit',function(ev){
-        
-        if(textarea.value != ''){
-            
-        }
-        else{
-            error_message.innerHTML="The post can not be empty."
-            ev.preventDefault()
-        }
-        
-    })
-    function showOptions(event){
-        var hasClass= event.currentTarget.nextElementSibling.classList.contains('hided');
-        hideOptions()
-        event.currentTarget.nextElementSibling.classList.toggle('hided')
-        if(!hasClass)event.currentTarget.nextElementSibling.classList.toggle('hided')
-        event.stopPropagation()
-    }
-   
-
-</script>
+<script src="../public/scripts/posts.js"></script>
 </html>
