@@ -1,43 +1,26 @@
 var router = require('express').Router()
-var {Mongo} = require('../mongoConnection')
+var { Mongo } = require('../mongoConnection')
 var verify = require('./verifyJWT')
 const { ObjectID, ObjectId } = require('mongodb')
 
 
-router.post('/post',verify,function(req,res){
-
-    Mongo.db.db('typhoon').collection('users').findOne({_id:ObjectId(req.userID)},{projection:{_id:0,username:1,displayname:1}},function(error1,user){
-    
-        if(error1) return res.status(404);
-
-        Mongo.db.db('typhoon').collection('posts').insertOne({
-            userID: req.userID,
-            username: user.username,
-            displayname: user.displayname,
-            content: req.body.message,
-            date: new Date(),
-        },function(err,result){
-            if(err) return res.status(500).send(err)
-            else{
-                res.redirect('/')
-            }
-         })
-
+router.post('/post', verify, async function (req, res) {
+    var logged_user = await Mongo.db.db('typhoon').collection('users').findOne({ _id: ObjectId(req.userID) }, { projection: { _id: 0, username: 1, displayname: 1 } })
+    var insert = await Mongo.db.db('typhoon').collection('posts').insertOne({
+        userID: req.userID,
+        username: logged_user.username,
+        displayname: logged_user.displayname,
+        content: req.body.message,
+        date: new Date(),
     })
-     
+    res.redirect('/')
 })
-router.get('/deletepost/:postID',verify,function(req,res){
-    Mongo.db.db('typhoon').collection('users').findOne({_id:ObjectId(req.userID)},function(userError,user){
-        if(userError) return res.status(401).send(userError);
 
-        Mongo.db.db('typhoon').collection('posts').deleteOne(
-            {_id:ObjectId(req.params.postID), username:user.username},
-            function(deleteError,result){
 
-                if(deleteError) return res.status(404).send(deleteError);
-                return res.redirect('/')
-        })
-    })
+router.get('/deletepost/:postID', verify,async function (req, res) {
+    var logged_user = await Mongo.db.db('typhoon').collection('users').findOne({_id: ObjectId(req.userID)})
+    var deleted = await Mongo.db.db('typhoon').collection('posts').deleteOne({_id: ObjectId(req.params.postID), username: logged_user.username})     
+    return res.redirect('/')
 })
 
 module.exports = router

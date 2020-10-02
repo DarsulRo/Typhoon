@@ -36,15 +36,10 @@ server.use('',postRoute)
 server.use('',authRoute)
 server.use('',userRoute)
 
-server.get('/',verify,function(req,res){
-    Mongo.db.db('typhoon').collection('users').findOne({_id:ObjectId(req.userID)},{projection:{password:0}},function(error,user){
-        if(error) return res.status(404);
-
-        Mongo.db.db('typhoon').collection('posts').find({}).sort({date:-1}).toArray(function(err,posts){
-            if(err) return res.status(400);
-            return res.render('home',{logged_user:user, posts})
-        })
-    })
+server.get('/',verify,async function(req,res){
+    var logged_user = await Mongo.db.db('typhoon').collection('users').findOne({_id:ObjectId(req.userID)},{projection:{password:0}})
+    var posts =  await Mongo.db.db('typhoon').collection('posts').find({}).sort({date:-1}).toArray()
+    return res.render('home',{logged_user, posts})
     
 })
 

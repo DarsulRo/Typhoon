@@ -45,6 +45,15 @@ header .buttons span{
 header .buttons .logout{
     color:var(--gray);
 }
+@media (orientation: portrait){
+    header .buttons .logout{
+        display: none;
+    }
+    header .buttons{
+        width: 100%;
+        justify-content: space-between;
+    }
+}
 </style>
 <header class="flex-row">
     <a href="/" class="flex-row logos">
@@ -52,7 +61,7 @@ header .buttons .logout{
         <h2>Typhoon</h2>
     </a>
     <div class="flex-row buttons">
-        <a href="/user/<%=logged_user.displayname%>"class="user-info flex-row">
+        <a href="/user/<%=logged_user.username%>"class="user-info flex-row">
             <img src="../public/res/favicon.png" alt="">
             <span><%=logged_user.displayname%></span>
         </a>

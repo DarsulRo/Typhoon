@@ -73,13 +73,14 @@ body{
     display: flex;
     width: 50rem;
 }
-#editPOPUP textarea{
-    width: 100%;
-    height: auto;
-    height: 10rem;
-    resize: none;
-    border: 0;
+#editForm{
+    overflow: hidden;
     border: solid 0.1rem var(--gray);
+    border-radius: 10px;
+}
+#editPOPUP textarea{
+    min-width: 100%;
+    min-height: 10rem;
     border-bottom: solid 1rem var(--gray);
     outline: none;
     padding: 1.5rem;
@@ -326,13 +327,7 @@ aside{
     aside.flex-column{
         display: none;
     }
-    header .logos{
-        display: none;
-    }
-    header .buttons{
-        width: 100%;
-        justify-content: space-between;
-    }
+    
     section#posts{
         width: 100%;
     }
