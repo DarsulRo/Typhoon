@@ -5,6 +5,7 @@ body{
     overflow-x: hidden;
 }
 #overlay{
+    display: none;
     top:-50%;
     left:0;
     width: 100%;
@@ -70,7 +71,6 @@ body{
 }
 
 #editPOPUP{
-    display: flex;
     width: 50rem;
 }
 #editForm{
@@ -280,6 +280,7 @@ a.display-name:hover{
     align-items: flex-start;
     z-index: 3;
     padding: 0.5rem 0;
+    right: 0;
 }
 .hided{
     display: none;

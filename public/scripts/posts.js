@@ -1,3 +1,5 @@
+
+
 //VALIDATE CREATION OF POSTS
 let create_button = document.getElementById('create-button')
 let create_post = document.getElementById('create-post')
@@ -61,7 +63,26 @@ cancelDelete.addEventListener('click',function(){
 //EDIT POST
 var editPOPUP = document.getElementById('editPOPUP')
 var cancelEdit = document.getElementById('cancelEdit')
+var editTextarea = document.getElementById('editContent')
+var confirmEdit = document.getElementById('confirmEdit')
+var editForm = document.getElementById('editForm')
 
+async function initiatePostEdit(event){
+
+    var postID = event.attributes.postID.value;
+    editForm.setAttribute('action', "/editpost/"+postID) 
+
+    var data = await fetch('/getpost/'+postID)
+    var content = await data.json()
+
+
+    editTextarea.innerText = content.content
+    overlay.style.display='flex'
+    editPOPUP.style.display='block'
+}
+confirmEdit.addEventListener('click',function(){
+    editForm.submit()
+})
 cancelEdit.addEventListener('click',function(){
     overlay.style.display='none'
     editPOPUP.style.display="none"

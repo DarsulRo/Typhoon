@@ -25,7 +25,7 @@
 
         <div id="editPOPUP" class="popup flex-column">
             <div class="flex-row header"><p>Editing Post</p></div>
-            <form id="editForm" class="flex-row content" action="/editpost" method="post">
+            <form id="editForm" class="flex-row content" action="/editpost" method="POST">
                 <textarea name="editedContent" id="editContent" cols="30">
                     Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cum maxime veniam possimus, animi corporis doloribus! Esse est officia placeat aspernatur enim aperiam a impedit praesentium tempore, quo nihil! Aliquid et voluptas culpa magni iure voluptatibus quod nisi cupiditate eligendi ratione, adipisci laboriosam illo officiis rem alias ex quaerat magnam facere?
                 </textarea>
@@ -102,7 +102,7 @@
                                     <a class="C-underline flex-row"><img src="../public/res/save.png" alt=""><p>Save</p></a>
                                     <a class="C-underline flex-row"><img src="../public/res/report.png" alt=""><p>Report</p></a>
                                     <%if(post.username == logged_user.username){%> 
-                                        <a postID="<%=post._id%>"  class="C-underline flex-row">
+                                        <a postID="<%=post._id%>" onclick="initiatePostEdit(this)" class="C-underline flex-row">
                                             <img src="../public/res/edit.png" alt=""><p>Edit</p>
                                         </a>
                                         <a postID="<%=post._id%>" onclick="initiatePostDelete(this)" class="C-underline flex-row">
