@@ -29,6 +29,7 @@ function hideOptions(){
     })
 }
 function showOptions(event){
+    
     var hasClass= event.currentTarget.nextElementSibling.classList.contains('hided');
     hideOptions()
     event.currentTarget.nextElementSibling.classList.toggle('hided')
@@ -72,18 +73,26 @@ async function initiatePostEdit(event){
     var postID = event.attributes.postID.value;
     editForm.setAttribute('action', "/editpost/"+postID) 
 
-    var data = await fetch('/getpost/'+postID)
+    var data = await fetch('/getpostcontent/'+postID)
     var content = await data.json()
 
-
-    editTextarea.innerText = content.content
+    
     overlay.style.display='flex'
     editPOPUP.style.display='block'
+    document.body.style.overflowY='hidden'
+    
+    editTextarea.value= content.content
+    
+    editTextarea.focus()
+    editTextarea.setSelectionRange(editTextarea.value.length,editTextarea.value.length);
+
+    
 }
 confirmEdit.addEventListener('click',function(){
     editForm.submit()
 })
 cancelEdit.addEventListener('click',function(){
+    document.body.style.overflowY='auto'
     overlay.style.display='none'
     editPOPUP.style.display="none"
 })

@@ -39,7 +39,7 @@ body{
     cursor: pointer;
     padding: 0.5rem 1rem;
     border: solid 0.2rem var(--gray);
-    border-radius: 5px;
+    border-radius: 10px;
     color: var(--gray);
     font-family: Exo-Medium;
     width: 6rem;
@@ -120,7 +120,8 @@ section#posts nav{
     padding: 0.5rem 0.5rem;
     margin-bottom: 2rem;
 }
-section#posts nav >a {
+section#posts nav > a {
+    cursor: pointer;
     flex-grow: 1;
     flex-basis: 0;
     display: flex;
@@ -180,14 +181,22 @@ section#posts nav >a::after{
 }
 
 #create-post button{
-    padding: 0.5rem 1rem;
+    font-family: Exo-Medium;
+    padding: 0.6rem 1.3rem;
     display: flex;
     align-self: flex-end;
     border-radius: 10px;
     outline: none;
-    border: solid gray 1px;
+    border: solid var(--green) 0.2rem;
+    color: var(--green);
     cursor: pointer;
     background-color: var(--mainwhite);
+    transition: all 0.3s ease;
+    
+}
+#create-post button:hover{
+    background-color: var(--green);
+    color: var(--mainwhite);
 }
 .error-message{
     color: white;
@@ -276,6 +285,7 @@ a.display-name:hover{
     background-color: aliceblue;
     border: solid 1px var(--gray);
     border-radius: 10px;
+    border-top-right-radius: 0;
     position: absolute;
     align-items: flex-start;
     z-index: 3;
@@ -318,13 +328,10 @@ aside{
     background-color: var(--mainwhite);
     border-radius: 10px;
     position: sticky;
-    top:1rem;
+    top:6rem;
 }
 
 @media(orientation:portrait){
-    html{
-        font-size: 0.85rem;
-    }
     aside.flex-column{
         display: none;
     }

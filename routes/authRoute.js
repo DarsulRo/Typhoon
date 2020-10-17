@@ -25,7 +25,14 @@ router.post('/register', async function (req, res) {
         const hashedPass = bcrypt.hashSync(req.body.password1, salt)
 
         //INSERT USER
-        var inserted = await Mongo.db.db('typhoon').collection('users').insertOne({ email: req.body.email, username: req.body.username, displayname: req.body.displayname, password: hashedPass })
+        var inserted = await Mongo.db.db('typhoon').collection('users').insertOne({ 
+            email: req.body.email, 
+            username: req.body.username, 
+            displayname: req.body.displayname,
+            password: hashedPass,
+            postLikes: [],
+            psotSaves: [] 
+        })
         res.redirect('/')
 
     } else {

@@ -15,6 +15,8 @@
     --darkblue: #0088bb;
     --gray: #333344;
     --red: rgb(240, 0, 0);
+    --green: rgb(15, 150, 15);
+    --blue: rgb(40, 175, 238);
 }
 
 *{
@@ -29,4 +31,8 @@ body{
     min-height: 100vh;
 }
 
-
+@media(orientation:portrait){
+    html{
+        font-size: 0.85rem;
+    }
+}

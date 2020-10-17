@@ -5,10 +5,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../public/styles/root.css">
     <link rel="stylesheet" href="../public/styles/profile.css">
+    <script src="../public/scripts/profile.js" defer></script>
     <title><%=req_user.displayname%> | Typhoon</title>
 </head>
 <body>
     <%- include ('partials/header.ejs') %>
-    <%=req_user%>
+    <div class="header flex-column">
+        <div class="background-image">
+            <img src="../public/res/wallpaper.jpeg" alt="">
+        </div>
+        <div class="profile flex-row">
+            <div class="profile-picture">
+                <img src="../public/res/Typhoon.svg" alt="">
+            </div>
+            <div class="profile-info flex-row">
+                <div class="flex-column">
+                    <p><%=req_user.displayname%></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <main id="main" class="flex-row">
+        <aside class="tab-nav flex-column">
+            <ul>
+                <a  tab-link="#about" class="ACTIVE">About</a>
+                <a  tab-link="#posts">Posts</a>
+                <%if(req_user.username == logged_user.username){%>
+                    <a  tab-link="#profile">Profile</a>
+                    <a  tab-link="#settings">Settings</a>
+                <%}%>
+            </ul>
+        </aside>
+        <div class='tabs flex-column'>
+            <div id="tabs-overlay" class="animeoverlay"></div>
+
+            <div id="about" class="tab ACTIVE" tab="about">
+jhfgjgfhj
+            </div>
+            <div id="posts" class="tab" tab="posts">
+hfgdhfgdh
+            </div>
+            <div id="profile" class="tab " tab="profile">
+hfgdhfgdhfd
+            </div>
+            <div id="settings" class="tab " tab="settings">
+                kjh;kjreyct
+            </div>
+            
+        </div>
+    </main>
+
+
+    <%- include ('partials/footer.ejs') %>
 </body>
 </html>
