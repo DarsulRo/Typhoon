@@ -19,13 +19,9 @@ tab_links.forEach(tab_link => {
         })
         tab_link.classList.add('ACTIVE')
 
-        
-        
         tabs_overlay.classList.add('animeoverlay')
         setTimeout(function(){
             tabs_overlay.classList.remove('animeoverlay')
         },400)
-        
-        
     })
 })

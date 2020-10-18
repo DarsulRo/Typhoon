@@ -38,18 +38,69 @@
         </aside>
         <div class='tabs flex-column'>
             <div id="tabs-overlay" class="animeoverlay"></div>
-
+                
             <div id="about" class="tab ACTIVE" tab="about">
-jhfgjgfhj
+                <h2><%=req_user.displayname%></h2>
+                
             </div>
             <div id="posts" class="tab" tab="posts">
-hfgdhfgdh
+
             </div>
-            <div id="profile" class="tab " tab="profile">
-hfgdhfgdhfd
+            <div id="profile" class="tab flex-column" tab="profile">
+                <h2>Update your information</h2>
+                <form action="<%=logged_user.username%>/update" class="flex-column" method="POST" autocomplete="off">
+                   
+                    <div class="pair flex-column">
+                        <label for="bio">Your Bio</label>
+                        <textarea name="bio" id="bio" cols="10" rows="3"><%=logged_user.personal.bio%></textarea>
+                    </div>
+                    <div class="pair flex-column">
+                        <label for="displayname">Display name</label>
+                        <input type="text" name="displayname" id="displayname" value="<%=logged_user.displayname%>">
+                    </div>
+                    <div class="pair flex-column">
+                        <label for="birthdate">Birthdate</label>
+                        <input type="date" name="birthdate" id="birthdate" value="<%=logged_user.personal.birthdate%>">
+                    </div>
+                    <div class="pair flex-column">
+                        <label for="adress">Adress</label>
+                        <input type="text" name="adress" id="adress" value="<%=logged_user.personal.adress%>">
+                    </div>
+                    <div class="pair flex-column">
+                        <label for="phonenumber">Phone number</label>
+                        <input type="tel" name="phonenumber" id="phonenumber" value="<%=logged_user.personal.phonenumber%>">
+                    </div>
+                    <div class="pair flex-column">
+                        <label for="occupation">Occupation</label>
+                        <select name="occupation" id="occupation">
+                            <option <%if(logged_user.personal.occupation==null){%> selected <%}%> disabled hidden>Choose occupation</option>
+                            <option <%if(logged_user.personal.occupation=='student'){%> selected <%}%>value="student">Student</option>
+                            <option <%if(logged_user.personal.occupation=='employed'){%> selected <%}%>value="employed">Employed</option>
+                            <option <%if(logged_user.personal.occupation=='unemployed'){%> selected <%}%>value="unemployed">Unemplyed</option>
+                            <option <%if(logged_user.personal.occupation=='retired'){%> selected <%}%>value="retired">Rretired</option>
+                            <option <%if(logged_user.personal.occupation=='other'){%> selected <%}%>value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="pair flex-column">
+                        <label for="relationstatus">Relationship Status</label>
+                        <select name="relationstatus" id="relationstatus">
+                            <option <%if(logged_user.personal.relationstatus==null){%> selected <%}%> disabled hidden value="">Choose status</option>
+                            <option <%if(logged_user.personal.relationstatus=='single'){%> selected <%}%> value="single">Single</option>
+                            <option <%if(logged_user.personal.relationstatus=='taken'){%> selected <%}%> value="taken">Taken</option>
+                            <option <%if(logged_user.personal.relationstatus=='happy'){%> selected <%}%> value="happy">Happy</option>
+                            <option <%if(logged_user.personal.relationstatus=='gamer'){%> selected <%}%> value="gamer">Gamer</option>      
+                        </select>
+                    </div>
+                    
+                    <div class="buttons flex-row">
+                        <button type="reset">Reset</button>
+                        <button type="submit">Submit</button>
+                    </div>
+
+                </form>
             </div>
             <div id="settings" class="tab " tab="settings">
-                kjh;kjreyct
+                
             </div>
             
         </div>

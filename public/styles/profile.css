@@ -110,22 +110,86 @@ main .tabs{
 .tab{
     display: none;
     width: 100%;
-    height: 30rem;
     
 }
-[tab='about']{
-    background-color: red;
-}
-[tab='posts']{
-    background-color: indianred;
-}
-[tab='profile']{
-    background-color: green;   
-}
-[tab='settings']{
-    background-color: lightseagreen;
-}
 
+.tab#profile{
+    align-items: flex-start;
+}
+#profile h2{
+    margin-bottom: 2rem;
+}
+#profile form{
+    width: min(100% , 35rem);
+}
+#profile form .pair{
+    width: 100%;
+    align-items: flex-start;
+    margin: 0.5rem 0;
+}
+#profile form select{
+    
+}
+#profile form .pair > *:nth-child(1){
+    margin-bottom: 0.5rem;
+    font-size: 1.35rem;
+}
+#profile form .pair > *:nth-child(2){
+    margin: 0.25rem 0;
+    height: 2rem;
+    padding-left: 0.5rem;
+    width: 100%;
+    background-color: var(--mainwhite);
+    border: solid 2px var(--lightblue);
+    border-radius: 0.3rem;
+    margin-bottom: 2rem;
+    font-size: 1.15rem;
+    outline: none;
+}
+#profile form .pair input{
+    padding: 1.5rem;
+}
+#profile form textarea{
+    resize: vertical;
+    padding: 1rem;
+    min-height: 7rem;
+    height: 7rem;
+    max-height: 15rem;
+}
+#profile form .buttons{
+    border-top: solid 1px var(--gray);
+    padding-top: 2rem;
+    margin-top: 1rem;
+    width: 100%;
+    justify-content: space-evenly;
+}
+#profile form .buttons button{
+    padding: 0.5rem;
+    width: 7rem;
+    background-color: var(--mainwhite);
+    border: solid 1px var(--gray);
+    border-radius: 0.3rem;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1.25rem;
+}
+#profile form .buttons [type="submit"]{
+    border: solid 0.2rem var(--lightblue);
+    color: var(--darkblue);
+}
+#profile form .buttons [type="submit"]:hover{
+    background-color: var(--lightblue);
+    color: var(--mainwhite);
+}
+#profile form .buttons [type="reset"]{
+    border: solid 0.2rem var(--red);
+    color: var(--red);
+}
+#profile form .buttons [type="reset"]:hover{
+    color: var(--mainwhite);
+    background-color: var(--red);
+}
 .tab-nav ul a.ACTIVE{
     background-color: var(--blue);
     color: var(--mainwhite);
@@ -147,7 +211,6 @@ main .tabs{
     animation: tab-overlay 0.3s ease;
 }
 @media(orientation:portrait){
-    
     header .logout{
         display: block !important; 
         margin-left: 0.5rem !important; 
@@ -162,6 +225,7 @@ main .tabs{
         background-color: var(--mainwhite);
         width: 100%;
         position: fixed;
+        z-index: 3;
         bottom: 0;
         left: 0;
         top: auto;
@@ -188,15 +252,11 @@ main .tabs{
     0%{
         display: flex;
         opacity: 100%;
-        
-    }
-    99%{
+    }99%{
         display: flex;
         opacity: 0%
-    }
-    100%{
+    }100%{
         opacity: 0%;
         display: none;
     }
-
 }

@@ -31,7 +31,14 @@ router.post('/register', async function (req, res) {
             displayname: req.body.displayname,
             password: hashedPass,
             postLikes: [],
-            psotSaves: [] 
+            postSaves: [],
+            personal: {
+                birthdate: null,
+                phonenumber: null,
+                adress: null,
+                occupation: null,
+                relationstatus: null
+            } 
         })
         res.redirect('/')
 
