@@ -9,7 +9,7 @@ class Mongo {
 }
 
 Mongo.db = null
-Mongo.url = 'mongodb+srv://dorin:dorin@cluster.fgr8o.mongodb.net/typhoon'
+Mongo.url = 'mongodb+srv://dorin:dorin@cluster.fgr8o.mongodb.net'
 Mongo.options = {
     useNewUrlParser:    true,
     useUnifiedTopology: true,

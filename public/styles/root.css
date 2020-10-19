@@ -11,6 +11,7 @@
 }
 :root{
     --mainwhite: #f6ffff;
+    --secondwhite: rgb(245, 250, 255);
     --lightblue: #44bbee;
     --darkblue: #0088bb;
     --gray: #333344;

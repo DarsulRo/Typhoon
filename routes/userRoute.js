@@ -8,7 +8,10 @@ router.get('/user/:username',verify, async function(req,res){
     var req_user = await Mongo.db.db('typhoon').collection('users').findOne({username:req.params.username},{projection:{_id:0,password:0}})
     var logged_user = await Mongo.db.db('typhoon').collection('users').findOne({_id:ObjectId(req.userID)},{projection:{_id:0,password:0}})
     
-    if(req_user==null)return res.status(404).send('User not found')
+    if(req_user==null)return res.status(404).render('error',{error:{
+        status:404,
+        msg:'User not found'
+    }})
     return res.render('profile.ejs',{logged_user,req_user})
 })
 
