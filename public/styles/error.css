@@ -1,0 +1,19 @@
+body{
+    background-image: linear-gradient(to top left, var(--lightblue), var(--darkblue));
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+div.container{
+    flex-grow:1;
+    height: 90vh;
+    justify-content: space-evenly;
+}
+.format{
+    font-size: 1.75rem;
+    color: var(--secondwhite);
+    text-shadow: 0.15rem 0.15rem var(--gray);
+}
+h2.format{
+    text-shadow: 0.5rem 0.5rem var(--gray);
+    font-size: 8rem;
+}
