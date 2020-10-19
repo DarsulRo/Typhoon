@@ -38,6 +38,14 @@ router.post('/register', async function (req, res) {
                 adress: null,
                 occupation: null,
                 relationstatus: null
+            },
+            preferences:{
+                email: false,
+                birthdate: true,
+                phonenumber: true,
+                adress: true,
+                occupation: true,
+                relationstatus: true
             } 
         })
         res.redirect('/')
