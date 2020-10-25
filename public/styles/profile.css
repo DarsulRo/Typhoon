@@ -130,7 +130,7 @@ main .tabs{
     padding: 1.5rem;
     border: solid 1px var(--lightblue);
     border-radius: 1rem;
-    background-color: var(--secondwhite);
+    background-color: var(--red);
     align-items: flex-start;
 }
 #about .bio h2{
