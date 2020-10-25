@@ -177,7 +177,7 @@ main .tabs{
     padding-left: 0.5rem;
     width: 100%;
     background-color: var(--secondwhite);
-    border: solid 2px var(--lightblue);
+    border: solid 2px var(--green);
     border-radius: 0.3rem;
     margin-bottom: 2rem;
     font-size: 1.15rem;
@@ -204,7 +204,7 @@ main .tabs{
     padding: 0.5rem;
     width: 7rem;
     background-color: var(--mainwhite);
-    border: solid 1px var(--gray);
+    border: solid 1px var(--lightblue);
     border-radius: 0.3rem;
     outline: none;
     cursor: pointer;
