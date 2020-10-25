@@ -37,6 +37,7 @@ router.post('/editpost/:postID',verify,async function(req,res){
 router.get('/getpostcontent/:postID',verify, async function(req,res){
     var postConent = await Mongo.db.db('typhoon').collection('posts').findOne({_id:ObjectId(req.params.postID)},{projection:{_id:0,content:1}})
     res.json(postConent)
+   
 })
 
 router.get('/getallposts',async function(req,res){

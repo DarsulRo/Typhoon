@@ -10,8 +10,9 @@ async function createAndConnect(){
     DB = Mongo.db.db('typhoon')
     console.log('Connected to the Typhoon database')
 
-    server.listen(8000,function(){
-        console.log("Listening on port 8000")
+    let port = 8000
+    server.listen(port,function(){
+        console.log("Listening on port " + port)
     })
 }
 createAndConnect()
@@ -40,9 +41,8 @@ server.get('/',verify,async function(req,res){
     var logged_user = await Mongo.db.db('typhoon').collection('users').findOne({_id:ObjectId(req.userID)},{projection:{password:0}})
     var posts =  await Mongo.db.db('typhoon').collection('posts').find({}).sort({date:-1}).toArray()
     return res.render('home',{logged_user, posts})
-    
+   
 })
-
 
 
 function logger(req,res,next){
