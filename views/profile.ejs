@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../public/styles/root.css">
     <link rel="stylesheet" href="../public/styles/profile.css">
     <link rel="stylesheet" href="../public/styles/posts.css">
-   
+
     <script src="../public/scripts/profile.js" defer></script>
     <script src="../public/scripts/renderPosts.js" defer>
-        window.addEventListener('DOMContentLoaded',function(){
+        window.addEventListener('DOMContentLoaded', function () {
             alert('yoo')
             uploadPosts('userposts/<%=req_user.username%>')
         })
@@ -17,6 +18,7 @@
 
     <title><%=req_user.displayname%> | Typhoon</title>
 </head>
+
 <body>
     <%- include ('partials/header.ejs') %>
     <div class="header flex-column">
@@ -37,11 +39,11 @@
     <main id="main" class="flex-row">
         <aside class="tab-nav flex-column">
             <ul>
-                <a  tab-link="#about" class="ACTIVE">About</a>
-                <a  tab-link="#posts" onclick="uploadPosts('userposts/<%=req_user.username%>')">Posts</a>
+                <a tab-link="#about" class="ACTIVE">About</a>
+                <a tab-link="#posts" onclick="uploadPosts('userposts/<%=req_user.username%>')">Posts</a>
                 <%if(req_user.username == logged_user.username){%>
-                    <a  tab-link="#profile">Profile</a>
-                    <a  tab-link="#settings">Settings</a>
+                <a tab-link="#profile">Profile</a>
+                <a tab-link="#settings">Settings</a>
                 <%}%>
             </ul>
         </aside>
@@ -49,7 +51,7 @@
             <div id="tabs-overlay" class="animeoverlay"></div>
                 
             <div id="about" class="tab flex-column ACTIVE" tab="about">
-                <h2 class="C-underline"><%=req_user.displayname%></h2> 
+                <h2 class="C-underline"><%=req_user.displayname%></h2>
 
                 <div class="bio flex-column">
                     <h2>Bio</h2>
@@ -57,73 +59,86 @@
                 </div>
 
                 <div class="personal flex-column">
-                    <div class="pair flex-row">
-                        <p class="label">Date of birth</p>
-                        <p class="info"><%=req_user.personal.birthdate%></p>
-                    </div>
-                    <div class="pair flex-row">
-                        <p class="label">Adress</p>
-                        <p class="info"><%=req_user.personal.adress%></p>
-                    </div>
-                    <div class="pair flex-row">
-                        <p class="label">Phone number</p>
-                        <p class="info"><%=req_user.personal.phonenumber%></p>
-                    </div> 
+                    <%if(req_user.preferences.email){%>
                     <div class="pair flex-row">
                         <p class="label">Email</p>
                         <p class="info"><%=req_user.email%></p>
                     </div>
+                    <%}%>
+                    <%if(req_user.preferences.birthdate){%>
+                    <div class="pair flex-row">
+                        <p class="label">Date of birth</p>
+                        <p class="info"><%=req_user.personal.birthdate%></p>
+                    </div>
+                    <%}%>
+                    <%if(req_user.preferences.adress){%>
+                    <div class="pair flex-row">
+                        <p class="label">Adress</p>
+                        <p class="info"><%=req_user.personal.adress%></p>
+                    </div>
+                    <%}%>
+                    <%if(req_user.preferences.phonenumber){%>
+                    <div class="pair flex-row">
+                        <p class="label">Phone number</p>
+                        <p class="info"><%=req_user.personal.phonenumber%></p>
+                    </div>
+                    <%}%>
+                    <%if(req_user.preferences.occupation){%>
                     <div class="pair flex-row">
                         <p class="label">Work status</p>
                         <p class="info"><%=req_user.personal.occupation%></p>
                     </div>
+                    <%}%>
+                    <%if(req_user.preferences.relationstatus){%>
                     <div class="pair flex-row">
                         <p class="label">Relationship status</p>
                         <p class="info"><%=req_user.personal.relationstatus%></p>
                     </div>
-                    
-                    
+                    <%}%>
                 </div>
-                
             </div>
 
-            <div id="posts" class="tab" tab="posts">
+            <div id="posts" class="tab flex-column" tab="posts">
                 <%-include('partials/postDialogs.ejs')%>
-                <div id="loading"></div>
-                <div id="posts-div">
-                    
+                    <div id="loading"></div>
+                    <h2 class="C-underline">All posts made by <%=req_user.displayname%></h2>
+                    <div id="posts-div">
+
+                    </div>
                 </div>
-            </div>
 
+                <%if(req_user.username == logged_user.username){%>
+                <div id="profile" class="tab flex-column" tab="profile">
+                    <h2>Update your information</h2>
+                    <form action="<%=logged_user.username%>/update" class="flex-column" method="POST"
+                        autocomplete="off">
 
-            <div id="profile" class="tab flex-column" tab="profile">
-                <h2>Update your information</h2>
-                <form action="<%=logged_user.username%>/update" class="flex-column" method="POST" autocomplete="off">
-                   
-                    <div class="pair flex-column">
-                        <label for="bio">Your Bio</label>
-                        <textarea name="bio" id="bio" cols="10" rows="3"><%=logged_user.personal.bio%></textarea>
-                    </div>
-                    <div class="pair flex-column">
-                        <label for="displayname">Display name</label>
-                        <input type="text" name="displayname" id="displayname" value="<%=logged_user.displayname%>">
-                    </div>
-                    <div class="pair flex-column">
-                        <label for="birthdate">Birthdate</label>
-                        <input type="date" name="birthdate" id="birthdate" value="<%=logged_user.personal.birthdate%>">
-                    </div>
-                    <div class="pair flex-column">
-                        <label for="adress">Adress</label>
-                        <input type="text" name="adress" id="adress" value="<%=logged_user.personal.adress%>">
-                    </div>
-                    <div class="pair flex-column">
-                        <label for="phonenumber">Phone number</label>
-                        <input type="tel" name="phonenumber" id="phonenumber" value="<%=logged_user.personal.phonenumber%>">
-                    </div>
-                    <div class="pair flex-column">
-                        <label for="occupation">Occupation</label>
-                        <select name="occupation" id="occupation">
-                            <option <%if(logged_user.personal.occupation==null){%> selected <%}%> disabled hidden>Choose occupation</option>
+                        <div class="pair flex-column">
+                            <label for="bio">Your Bio</label>
+                            <textarea name="bio" id="bio" cols="10" rows="3"><%=logged_user.personal.bio%></textarea>
+                        </div>
+                        <div class="pair flex-column">
+                            <label for="displayname">Display name</label>
+                            <input type="text" name="displayname" id="displayname" value="<%=logged_user.displayname%>">
+                        </div>
+                        <div class="pair flex-column">
+                            <label for="birthdate">Birthdate</label>
+                            <input type="date" name="birthdate" id="birthdate"
+                                value="<%=logged_user.personal.birthdate%>">
+                        </div>
+                        <div class="pair flex-column">
+                            <label for="adress">Adress</label>
+                            <input type="text" name="adress" id="adress" value="<%=logged_user.personal.adress%>">
+                        </div>
+                        <div class="pair flex-column">
+                            <label for="phonenumber">Phone number</label>
+                            <input type="tel" name="phonenumber" id="phonenumber"
+                                value="<%=logged_user.personal.phonenumber%>">
+                        </div>
+                        <div class="pair flex-column">
+                            <label for="occupation">Occupation</label>
+                            <select name="occupation" id="occupation">
+                                <option <%if(logged_user.personal.occupation==null){%> selected <%}%> disabled hidden>Choose occupation</option>
                             <option <%if(logged_user.personal.occupation=='student'){%> selected <%}%>value="student">Student</option>
                             <option <%if(logged_user.personal.occupation=='employed'){%> selected <%}%>value="employed">Employed</option>
                             <option <%if(logged_user.personal.occupation=='unemployed'){%> selected <%}%>value="unemployed">Unemplyed</option>
@@ -143,22 +158,75 @@
                     </div>
                     
                     <div class="buttons flex-row">
-                        <button type="reset">Reset</button>
-                        <button type="submit">Submit</button>
+                        <button class="C-redButton" type="reset">Reset</button>
+                        <button class="C-blueButton" type="submit">Submit</button>
                     </div>
 
                 </form>
             </div>
 
+            <div id="settings" class="tab flex-column" tab="settings">
+                <form id="loginSettings" class="flex-column" action="" method="POST">
+                    <h2 class="form-title">Update your privacy data</h2>
 
-            <div id="settings" class="tab " tab="settings">
-                
+                </form>
+
+                <form id="preferencesSettings" class="flex-column" action="<%=logged_user.username%>/updatepreferences"
+                                    method="POST">
+                                    <h2 class="form-title">Update your preferences</h2>
+                                    <table class='flex-column'>
+                                        <tbody>
+                                            <tr class='flex-row'>
+                                                <th class='label'>Preference visibility</th>
+                                                <th>Show</th>
+                                                <th>Hide</th>
+                                            </tr>
+                                            <tr class="flex-row">
+                                                <td class='label'><label for="adress">Email</label></td>
+                                                <td><input type="radio" name="email" id="email" value="true" <%if(logged_user.preferences.email==true){%>checked<%}%>></td>
+                                <td><input type="radio" name="email" id="email" value="false" <%if(logged_user.preferences.email==false){%>checked<%}%>></td>
+                            </tr>
+                            <tr class="flex-row">
+                                <td class='label'><label for="birthdate">Date of birth</label></td>
+                                <td><input type="radio" name="birthdate" id="birthdate" value="true" <%if(logged_user.preferences.birthdate==true){%>checked<%}%>></td>
+                                <td><input type="radio" name="birthdate" id="birthdate" value="false" <%if(logged_user.preferences.birthdate==false){%>checked<%}%>></td>
+                            </tr>
+                            <tr class="flex-row">
+                                <td class='label'><label for="phonenumber">Phone number</label></td>
+                                <td><input type="radio" name="phonenumber" id="phonenumber" value="true" <%if(logged_user.preferences.phonenumber==true){%>checked<%}%>></td>
+                                <td><input type="radio" name="phonenumber" id="phonenumber" value="false"<%if(logged_user.preferences.phonenumber==false){%>checked<%}%> ></td>
+                            </tr>
+                            <tr class="flex-row">
+                                <td class='label'><label for="adress">Adress</label></td>
+                                <td><input type="radio" name="adress" id="adress" value="true" <%if(logged_user.preferences.adress==true){%>checked<%}%>></td>
+                                <td><input type="radio" name="adress" id="adress" value="false" <%if(logged_user.preferences.adress==false){%>checked<%}%>></td>
+                            </tr>
+                             <tr class="flex-row">
+                                <td class='label'><label for="occupation">Occupation</label></td>
+                                <td><input type="radio" name="occupation" name="occupation" value="true" <%if(logged_user.preferences.occupation==true){%>checked<%}%>></td>
+                                <td><input type="radio" name="occupation" name="occupation" value="false" <%if(logged_user.preferences.occupation==false){%>checked<%}%>></td>
+                            </tr>
+                            <tr class="flex-row">
+                                <td class='label'><label for="relationstatus">Relationship status</label></td>
+                                <td><input type="radio" name="relationstatus" id="relationstatus" value="true" <%if(logged_user.preferences.relationstatus==true){%>checked<%}%>></td>
+                                <td><input type="radio" name="relationstatus" id="relationstatus" value="false" <%if(logged_user.preferences.relationstatus==false){%>checked<%}%>></td>
+                            </tr>
+                            
+                            
+                            
+                        </tbody>
+                    </table>
+                    <div class='controls flex-row'>
+                        <button type="reset" class="C-redButton">Reset</button>
+                        <button type="submit" class="C-blueButton">Update</button>
+                    </div>
+                </form>
             </div>
-            
-        </div>
+            <%}%> </div>
     </main>
 
 
     <%- include ('partials/footer.ejs') %>
 </body>
+
 </html>

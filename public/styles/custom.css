@@ -93,3 +93,37 @@
     height: 400%;
     width: 200%;
 }
+
+.C-blueButton{
+    padding: 0.5rem;
+    width: 7rem;
+    background-color: var(--mainwhite);
+    border: solid 0.2rem var(--lightblue);
+    border-radius: 0.3rem;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1.25rem;
+    color: var(--lightblue);
+}
+.C-blueButton:hover{
+    background-color: var(--lightblue);
+    color: var(--mainwhite);
+}
+
+.C-redButton{
+    padding: 0.5rem;
+    width: 7rem;
+    background-color: var(--mainwhite);
+    border: solid 0.2rem var(--red);
+    border-radius: 0.3rem;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1.25rem;
+    color: var(--red);
+}
+.C-redButton:hover{
+    background-color: var(--red);
+    color: var(--mainwhite);
+}
