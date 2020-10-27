@@ -1,0 +1,116 @@
+#posts-div{
+    border-radius: 10px;
+    width: 100%;
+    min-height: 100vh;
+}
+.POST{
+    border-left: solid var(--gray) 0.75rem;
+    border-radius: 10px;
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background-color: var(--mainwhite);
+}
+.POST a{
+    cursor: pointer;
+}
+.post-header{
+    width: 100%;
+    justify-content: space-between;
+    flex-wrap: wrap-reverse;
+}
+
+.display-name{
+    margin-left: 1rem;
+    color: var(--gray);
+    font-family: Exo-Medium;
+    font-weight: 400;
+}
+a.display-name:hover{
+    text-decoration: solid underline;
+}
+.post-header .username{
+    color: gray;
+    margin-left: 0.5rem;
+}
+.username:hover{
+    cursor: pointer;
+    color: var(--lightblue);
+    text-decoration: underline;
+}
+.post-header .time{
+    flex-grow: 1;
+}
+.post-header .time p{
+    float: right;
+    color: gray;
+}
+.POST .content{
+    margin: 2rem 0;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+    white-space: pre;
+    font-size: 1.25rem;
+    white-space: pre-wrap;
+}
+.interact{
+    width: 100%;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.interact .like .likes-count{
+    font-size: 1.5rem;
+    margin-right: 1rem;
+}
+.interact .like a{
+    margin-right: 1rem;
+    color: black;
+    padding: 0.25rem 0;
+    height: 2rem;
+    width: 2rem;
+    text-align: center;
+}
+.interact .like img{
+    height: 100%;
+}
+.interact .options{
+    position: relative;
+}
+.interact .options ul{
+    background-color: aliceblue;
+    border: solid 1px var(--gray);
+    border-radius: 10px;
+    border-top-right-radius: 0;
+    position: absolute;
+    align-items: flex-start;
+    z-index: 3;
+    padding: 0.5rem 0;
+    right: 0;
+}
+.hided{
+    display: none;
+}
+
+.interact .options ul a{
+    cursor: pointer;
+    padding: 0.25rem 0.5rem;
+    margin: 0.20rem 0;
+    width: 100%;
+    justify-content: flex-start;
+}
+
+.interact .options img{
+    height: 2rem;
+    padding: 0.25rem 0;
+}
+.interact .options > a{
+    height: 2rem;
+}
+.interact .options ul img{
+    height: 1.75rem;
+    margin-right: 0.5rem;
+}
+.interact .options ul p{
+    color: var(--gray);
+    font-family: Exo-Medium;
+}

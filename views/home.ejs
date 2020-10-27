@@ -1,21 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles/root.css">
     <link rel="stylesheet" href="styles/home.css">
+    <link rel="stylesheet" href="../public/styles/posts.css">
     <link rel="shortcut icon" href="public/favicon.ico" type="image/x-icon">
+    <script>
+        window.addEventListener('DOMContentLoaded', async function () {
+            uploadPosts('allposts')
+        })
+    </script>
+    <script src="../public/scripts/renderPosts.js" defer></script>
+    <script src="../public/scripts/postDialogs.js" defer></script>
+    <script src="../public/scripts/createPost.js" defer></script>
     <title>Typhoon</title>
 </head>
+
 <body>
-    
+
     <%-include ('partials/header')%>
     <div id="overlay" class="flex-column">
         <div id="deletePOPUP" class="popup flex-column">
-            <div class="flex-row header"><p>Do you want to delete this post?</p></div>
+            <div class="flex-row header">
+                <p>Do you want to delete this post?</p>
+            </div>
             <div class="flex-row content">
-                <p id="deleteContent" class="flex-column">l Lorem, ipsum dolor sit amet consectetur adipisicing elit. Itaque reiciendis exercitationem dolores impedit asperiores illum laboriosam tempora velit officia necessitatibus.</p>
+                <p id="deleteContent" class="flex-column">l Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                    Itaque reiciendis exercitationem dolores impedit asperiores illum laboriosam tempora velit officia
+                    necessitatibus.</p>
             </div>
             <div class="flex-row">
                 <a id="cancelDelete" class="button"> CANCEL</a>
@@ -24,27 +39,29 @@
         </div>
 
         <div id="editPOPUP" class="popup flex-column">
-            <div class="flex-row header"><p>Edit your post!</p></div>
+            <div class="flex-row header">
+                <p>Edit your post!</p>
+            </div>
             <form id="editForm" class="flex-row content" action="/editpost" method="POST">
-                <textarea name="editedContent" id="editContent" cols="30" >
+                <textarea name="editedContent" id="editContent" cols="30">
                     Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cum maxime veniam possimus, animi corporis doloribus! Esse est officia placeat aspernatur enim aperiam a impedit praesentium tempore, quo nihil! Aliquid et voluptas culpa magni iure voluptatibus quod nisi cupiditate eligendi ratione, adipisci laboriosam illo officiis rem alias ex quaerat magnam facere?
                 </textarea>
             </form>
             <div class="flex-row">
-                <a id="cancelEdit"  class="button">Cancel</a>
+                <a id="cancelEdit" class="button">Cancel</a>
                 <a id="confirmEdit" class="button">Edit</a>
             </div>
         </div>
     </div>
-    
+
     <main class="flex-row">
         <section id="posts" class="flex-column">
 
             <nav class="flex-row">
-                <a id="create-button" class="C-underline" >Create post</a>
-                <a id="AllPosts" class="C-underline">All posts</a>
-                <a id="MyPosts" class="C-underline">My posts</a>
-                <a id="SavedPosts" class="C-underline">Saved posts</a>
+                <a id="create-button" class="C-underline">Create post</a>
+                <a id="AllPosts" class="C-underline" onclick="uploadPosts('allposts')">All posts</a>
+                <a id="MyPosts" class="C-underline" onclick="uploadPosts('myposts')">My posts</a>
+                <a id="SavedPosts" class="C-underline" onclick="uploadPosts('myposts')">Saved posts</a>
             </nav>
 
 
@@ -54,79 +71,31 @@
                         <div class="user flex-row">
                             <a class="avatar"><img class="" src="../public/res/favicon.png" alt=""></a>
                             <a class="create-as flex-row">
-                                Create post as  <h4 class="display-name "> <%=logged_user.displayname%></h4>
+                                Create post as <h4 class="display-name "> <%=logged_user.displayname%></h4>
                             </a>
                         </div>
                     </div>
                     <textarea id="create-post-textarea" name="message" cols="10" rows="1"></textarea>
-                    
-                    <div class="subsol flex-row">  
+
+                    <div class="subsol flex-row">
                         <p class="error-message"></p>
                         <button type="submit">POST</button>
                     </div>
                 </form>
             </div>
 
-
-            <div id="posts-div" class="">
-                <%posts.forEach(function(post){%>
-                    <div class="flex-column POST">
-                        <div class="post-header flex-row">
-                            <div class="user flex-row">
-                                <a href="/user/<%=post.username%>" class="avatar"><img class="" src="../public/res/favicon.png" alt=""></a>
-                                <a href="/user/<%=post.username%>" class="display-name"><%=post.displayname%></a>
-                                <a href="/user/<%=post.username%>" class="username">@<%=post.username%></a>
-                            </div>
-                            <div class="time">
-                                <p><%=post.date.toLocaleString()%></p>
-                            </div>
-                        </div>
-                        <div class="content flex-column">
-                            <p><%=post.content%></p>
-                            
-                        </div>
-                        <div class="interact flex-row">
-
-                            <div class="like flex-row">
-                                <p class="likes-count"><%=post.likes%></p>
-                                <a href="" class="C-underline">
-                                    <img src="../public/res/like.png" >
-                                </a>
-                                <a href="" class="C-underline">
-                                    <img src="../public/res/dislike.png">
-                                </a>
-                            </div>
-                            <div class="options">
-                                <a onclick="showOptions(event)"><img src="../public/res/more.png" alt=""></a>
-                                <ul class="hided flex-column">
-
-                                    <a class="C-underline flex-row"><img src="../public/res/save.svg" alt=""><p>Save</p></a>
-                                    <a class="C-underline flex-row"><img src="../public/res/warning.svg" alt=""><p>Report</p></a>
-                                    <%if(post.username == logged_user.username){%> 
-                                        <a postID="<%=post._id%>" onclick="initiatePostEdit(this)" class="C-underline flex-row">
-                                            <img src="../public/res/edit.svg" alt=""><p>Edit</p>
-                                        </a>
-                                        <a postID="<%=post._id%>" onclick="initiatePostDelete(this)" class="C-underline flex-row">
-                                            <img src="../public/res/delete.svg" ><p >Delete</p>
-                                        </a>
-                                    <%}%>
-                                </ul>
-                            </div>
-                            
-                            
-                        </div>
-                        
-                    </div>
-                <%})%>
+            <div id="loading" class="flex-column">
+                <img src="../public/res/loading.svg" alt="">
+            </div>
+            <div id="posts-div">
+                
             </div>
         </section>
         <aside class="flex-column">
-        
-            
+
+
         </aside>
     </main>
     <%-include ('partials/footer')%>
 </body>
-<script src="../public/scripts/posts.js"></script>
-<script src="../public/scripts/navmenu.js"></script>
 </html>

@@ -50,7 +50,10 @@ router.get('/getmyposts',verify,async function(req,res){
     var myposts = await Mongo.db.db('typhoon').collection('posts').find({username:logged_user.username}).toArray()
     res.json(myposts)
 })
-
+router.get('/getloggeduser',verify, async function(req,res){
+    var logged_user = await Mongo.db.db('typhoon').collection('users').findOne({_id: ObjectId(req.userID)},{projection:{_id:0,password:0,email:0}})
+    res.json(logged_user)
+})
 router.get('/getuserposts/:username',async function(req,res){
     var userposts = await Mongo.db.db('typhoon').collection('posts').find({username:req.params.username}).toArray()
     res.json(userposts)

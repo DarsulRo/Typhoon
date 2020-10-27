@@ -5,7 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../public/styles/root.css">
     <link rel="stylesheet" href="../public/styles/profile.css">
+    <link rel="stylesheet" href="../public/styles/posts.css">
+   
     <script src="../public/scripts/profile.js" defer></script>
+    <script src="../public/scripts/renderPosts.js" defer>
+        window.addEventListener('DOMContentLoaded',function(){
+            alert('yoo')
+            uploadPosts('userposts/<%=req_user.username%>')
+        })
+    </script>
+
     <title><%=req_user.displayname%> | Typhoon</title>
 </head>
 <body>
@@ -29,7 +38,7 @@
         <aside class="tab-nav flex-column">
             <ul>
                 <a  tab-link="#about" class="ACTIVE">About</a>
-                <a  tab-link="#posts">Posts</a>
+                <a  tab-link="#posts" onclick="uploadPosts('userposts/<%=req_user.username%>')">Posts</a>
                 <%if(req_user.username == logged_user.username){%>
                     <a  tab-link="#profile">Profile</a>
                     <a  tab-link="#settings">Settings</a>
@@ -79,7 +88,11 @@
             </div>
 
             <div id="posts" class="tab" tab="posts">
-
+                <%-include('partials/postDialogs.ejs')%>
+                <div id="loading"></div>
+                <div id="posts-div">
+                    
+                </div>
             </div>
 
 

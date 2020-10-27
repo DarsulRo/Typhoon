@@ -1,0 +1,128 @@
+<script src='../../public/scripts/postDialogs.js' defer></script>
+<style>
+    #overlay{
+    display: none;
+    top:-50%;
+    left:0;
+    width: 100%;
+    height: 200%;
+    position: fixed;
+    z-index: 5;
+    background-color: rgba(0, 115, 160, 0.452);
+}
+.popup{
+    display: none;
+    width: 30rem;
+    max-width: 95%;
+    background-color: var(--mainwhite);
+    border: solid var(--gray) 0.15rem;
+    border-radius: 10px;
+    padding: 1rem;
+}
+.popup > *{
+    width: 100%;
+    margin: 1rem 0;
+}
+.popup .pheader{
+    color: var(--gray);
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+}
+.popup.pheader p{
+    font-family: Exo-Medium;
+}
+.popup .button{
+    transition: all 0.3s ease;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    border: solid 0.2rem var(--gray);
+    border-radius: 10px;
+    color: var(--gray);
+    font-family: Exo-Medium;
+    width: 6rem;
+    display: flex;
+    justify-content: center;
+}
+#deletePOPUP .content{
+    max-height: 20rem;
+    overflow-y: auto;
+}
+#deletePOPUP .content p{
+    padding: 1rem;
+    padding-right: 0;
+    background-color: #e0f0f0;
+    width: 100%;
+    font-size: 1rem;
+    white-space: normal;
+    border-left: solid 0.5rem var(--gray);
+    border-radius: 0 4px 4px 0;
+}
+#deletePOPUP .button#confirmDelete{
+    color: var(--red);
+    border-color: var(--red);
+}
+#deletePOPUP .button#confirmDelete:hover{
+    background-color: var(--red);
+    color: var(--mainwhite);
+}
+
+#editPOPUP{
+    width: 50rem;
+}
+#editForm{
+    overflow: hidden;
+    border: solid 0.1rem var(--gray);
+    border-radius: 10px;
+}
+#editPOPUP textarea{
+    min-width: 100%;
+    min-height: 10rem;
+    border-bottom: solid 1rem var(--gray);
+    outline: none;
+    padding: 1.5rem;
+    text-align: left;
+    font-size: 1rem;
+    background-color: #e0f0f0;
+    letter-spacing: 1px;
+    
+}
+#editPOPUP #confirmEdit{
+    border-color: var(--darkblue);
+    color: var(--darkblue);
+}
+#editPOPUP #confirmEdit:hover{
+    background-color: var(--darkblue);
+    color: var(--mainwhite);
+}
+</style>
+<div id="overlay" class="flex-column">
+    <div id="deletePOPUP" class="popup flex-column">
+        <div class="flex-row pheader">
+            <p>Do you want to delete this post?</p>
+        </div>
+        <div class="flex-row content">
+            <p id="deleteContent" class="flex-column">l Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                Itaque reiciendis exercitationem dolores impedit asperiores illum laboriosam tempora velit officia
+                necessitatibus.</p>
+        </div>
+        <div class="flex-row">
+            <a id="cancelDelete" class="button"> CANCEL</a>
+            <a id="confirmDelete" class="button"> DELETE </a>
+        </div>
+    </div>
+
+    <div id="editPOPUP" class="popup flex-column">
+        <div class="flex-row pheader">
+            <p>Edit your post!</p>
+        </div>
+        <form id="editForm" class="flex-row content" action="/editpost" method="POST">
+            <textarea name="editedContent" id="editContent" cols="30">
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cum maxime veniam possimus, animi corporis doloribus! Esse est officia placeat aspernatur enim aperiam a impedit praesentium tempore, quo nihil! Aliquid et voluptas culpa magni iure voluptatibus quod nisi cupiditate eligendi ratione, adipisci laboriosam illo officiis rem alias ex quaerat magnam facere?
+            </textarea>
+        </form>
+        <div class="flex-row">
+            <a id="cancelEdit" class="button">Cancel</a>
+            <a id="confirmEdit" class="button">Edit</a>
+        </div>
+    </div>
+</div>
