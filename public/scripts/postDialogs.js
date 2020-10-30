@@ -7,7 +7,6 @@ function hideOptions(){
     })
 }
 function showOptions(event){
-    
     var hasClass= event.currentTarget.nextElementSibling.classList.contains('hided');
     hideOptions()
     event.currentTarget.nextElementSibling.classList.toggle('hided')
@@ -15,6 +14,15 @@ function showOptions(event){
     event.stopPropagation()
 }
 
+
+var cancelButtons = document.querySelectorAll('[cancelPopup]')
+cancelButtons.forEach(cancelButton => {
+    cancelButton.addEventListener('click',function(){
+        finalizePost()
+    })
+})
+
+//DELETE POST
 var overlay = document.getElementById('overlay')
 var deletePOPUP = document.getElementById('deletePOPUP')
 var deleteContent = document.getElementById('deleteContent')
@@ -22,12 +30,16 @@ var confirmDelete = document.getElementById('confirmDelete')
 var cancelDelete = document.getElementById('cancelDelete')
 
 function initiatePost(){
+    finalizePost()
     overlay.style.display='flex'
     document.body.style.overflowY='hidden'
 }
 function finalizePost(){
     document.body.style.overflowY='auto'
     overlay.style.display='none'
+    deletePOPUP.style.display='none'
+    editPOPUP.style.display='none'
+    reportPOPUP.style.display='none'
 }
 function initiatePostDelete(event){
     initiatePost()
@@ -39,10 +51,7 @@ function initiatePostDelete(event){
     deletePOPUP.style.display="block"
 }
 
-cancelDelete.addEventListener('click',function(){
-    deletePOPUP.style.display="none"
-    finalizePost()
-})
+
 
 //EDIT POST
 var editPOPUP = document.getElementById('editPOPUP')
@@ -69,7 +78,16 @@ confirmEdit.addEventListener('click',function(){
     finalizePost()
     editForm.submit()
 })
-cancelEdit.addEventListener('click',function(){
-    finalizePost()
-    editPOPUP.style.display="none"
-})
+
+//REPORT POST
+var reportPOPUP = document.getElementById('reportPOPUP')
+var reportForm = document.getElementById('reportForm')
+
+function initiatePostReport(event){
+    initiatePost() 
+
+    var postID = event.attributes.postID.value;
+    reportForm.setAttribute('action', "/reportpost/"+postID) 
+
+    reportPOPUP.style.display='flex'
+}

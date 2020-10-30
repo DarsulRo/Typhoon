@@ -30,12 +30,14 @@ server.use(cookieParser())
 const authRoute = require('./routes/authRoute');
 const postRoute = require('./routes/postRoute')
 const userRoute = require('./routes/userRoute')
+const errorRoute = require('./routes/errorRoute')
 const { ObjectID, ObjectId } = require('mongodb')
 
 //ROUTE MIDDLEWARE
 server.use('',postRoute)
 server.use('',authRoute)
 server.use('',userRoute)
+server.use('',errorRoute)
 
 server.get('/',verify,async function(req,res){
     var logged_user = await Mongo.db.db('typhoon').collection('users').findOne({_id:ObjectId(req.userID)},{projection:{password:0}})

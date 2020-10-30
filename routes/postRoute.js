@@ -21,7 +21,7 @@ router.post('/post', verify, async function (req, res) {
 router.get('/deletepost/:postID', verify,async function (req, res) {
     var logged_user = await Mongo.db.db('typhoon').collection('users').findOne({_id: ObjectId(req.userID)})
     var deleted = await Mongo.db.db('typhoon').collection('posts').deleteOne({_id: ObjectId(req.params.postID), username: logged_user.username})     
-    return res.redirect('/')
+    return res.redirect('back')
 })
 
 router.post('/editpost/:postID',verify,async function(req,res){

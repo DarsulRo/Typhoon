@@ -63,17 +63,17 @@ function renderPost(post,logged_user){
             <a onclick="showOptions(event)"><img src="../public/res/more.png" alt=""></a>
             <ul class="hided flex-column">
 
-                <a class="C-underline flex-row"><img src="../public/res/save.svg" alt=""><p>Save</p></a>
-                <a class="C-underline flex-row"><img src="../public/res/warning.svg" alt=""><p>Report</p></a>
-                ${(post.username == logged_user.username)?
-                    `<a postID="${post._id}" onclick="initiatePostEdit(this)" class="C-underline flex-row">
+                ${(post.username == logged_user.username)
+                    ?`<a postID="${post._id}" onclick="initiatePostEdit(this)" class="C-underline flex-row">
                     <img src="../public/res/edit.svg" alt=""><p>Edit</p>
                     </a>
                     <a postID="${post._id}" onclick="initiatePostDelete(this)" class="C-underline flex-row">
                         <img src="../public/res/delete.svg" ><p >Delete</p>
                     </a>`
-                :''
-            }
+                    
+                    :`<a class="C-underline flex-row"><img src="../public/res/save.svg" alt=""><p>Save</p></a>
+                    <a postID="${post._id}" onclick="initiatePostReport(this)" class="C-underline flex-row"><img src="../public/res/warning.svg" alt=""><p>Report</p></a>`
+                }
             </ul>
         </div>
         

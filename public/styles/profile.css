@@ -63,7 +63,7 @@ body{
 }
 
 #main{
-    margin: 3rem 1rem;
+    margin: 5rem 1rem;
     padding: min(3rem, 5%);
     width: calc(100% - 2rem);
     background-color: var(--mainwhite);
@@ -159,9 +159,9 @@ main .tabs{
     margin-bottom: 2rem;
 }
 #posts .POST{
-    margin: 2rem 0;
+    margin: 3rem 0;
     max-width:40rem;
-    box-shadow: 0 0 8px 0px rgb(110, 110, 150);
+    box-shadow: 0 0 5px 1px rgba(110, 110, 150, 0.397);
 }
 
 .tab#profile{
@@ -176,33 +176,45 @@ main .tabs{
 #profile form .pair{
     width: 100%;
     align-items: flex-start;
-    margin: 0.5rem 0;
+    margin: 1rem 0;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 0 4px 1px rgba(156, 156, 156, 0.753);
+    transition: box-shadow 0.3s ease;
+}
+#profile form .pair:focus-within{
+    box-shadow: 0 0 5px 1px var(--lightblue);
 }
 #profile form .pair > *:nth-child(1){
     margin-bottom: 0.5rem;
     font-size: 1.35rem;
+    color: gray;
 }
 #profile form .pair > *:nth-child(2){
-    margin: 0.25rem 0;
-    height: 2rem;
-    padding-left: 0.5rem;
+    margin: 0.5rem 0;
     width: 100%;
-    background-color: var(--secondwhite);
-    border: solid 2px var(--lightblue);
-    border-radius: 0.3rem;
+    background-color: transparent;
+    border: none;
+    border-bottom: solid 2px var(--gray);
     margin-bottom: 2rem;
     font-size: 1.15rem;
     outline: none;
+    padding: 0.5rem 0;
+    padding-left: 0.5rem;
+    transition: border-color 0.3s ease;
+}#profile form .pair > *:nth-child(2):focus{
+    border-color: var(--lightblue) !important;
 }
-#profile form .pair input{
-    padding: 1.5rem;
-}
-#profile form textarea{
+#profile form .pair textarea#bio{
     resize: vertical;
     padding: 1rem;
     min-height: 7rem;
     height: 7rem;
     max-height: 15rem;
+    border: solid 2px gray;
+    border-radius: 0.4rem;
+    border-width: 1px;
+    border-bottom-width: 3px;
 }
 #profile form .buttons{
     border-top: solid 1px var(--gray);
@@ -215,12 +227,16 @@ main .tabs{
 
 #settings{
     width: min(100%, 40rem);
-    align-self: flex-start;
+    align-items: flex-start;
+    align-self: start;
 }
 #settings form{
     width: 100%;
-    padding: 1rem;
+    padding: 2rem 1rem;
     align-items: flex-start;
+    margin-bottom: 2rem;
+    box-shadow: 0 5px 10px 1px rgba(153, 153, 153, 0.7);
+    border-radius: 0.5rem;
 }
 #settings .controls{
     width: 100%;
@@ -230,13 +246,50 @@ main .tabs{
     font-weight: 500;
     color:var(--gray);
     margin-bottom: 2rem;
+    font-size: 1.75rem;
 }
-
+#settings h3, #settings h2{
+    color: var(--gray);
+}
+#settings h3{
+    margin-bottom: 2rem;
+}
 #settings #loginSettings{
-    border-bottom: solid 0.2rem var(--gray);
+    margin-bottom: 5rem;
+    padding-left: 1.5rem;
+}
+#settings #loginSettings label{
+    margin-top: 1rem;
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+}
+#settings #loginSettings input{
+    padding: 0.5rem 0;
+    width: 100%;
+    background-color: transparent;
+    margin-bottom: 2rem;
+    font-size: 1.15rem;
+    border:none;
+    border-bottom: solid 1px var(--gray);
+    outline: none;
+}
+#settings #loginSettings #showChangePassword{
+    cursor: pointer;
     margin-bottom: 3rem;
 }
+#settings #loginSettings #changePassword{
+    width: 100%;
+    display: none;
+    align-items: flex-start;
+}
+#settings #loginSettings .controls{
+    margin: 1rem 0;
+}
 
+
+#settings #preferencesSettings{
+    padding-top: 0;
+}
 #settings #preferencesSettings table{
     width: 100%;
 }
@@ -299,7 +352,7 @@ main .tabs{
     }
     #main{
         flex-direction: column;
-        margin: 0;
+        margin:5rem 0;
         width: 100%;
         margin-bottom: 1rem;
     }

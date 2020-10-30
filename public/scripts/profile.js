@@ -25,3 +25,10 @@ tab_links.forEach(tab_link => {
         },400)
     })
 })
+
+let showChangePassword = document.getElementById('showChangePassword')
+let changePassword = document.getElementById('changePassword')
+showChangePassword.addEventListener('click',function(){
+    showChangePassword.style.display='none'
+    changePassword.style.display='flex'
+})

@@ -36,14 +36,15 @@
             </div>
         </div>
     </div>
+    <div id="top"></div>
     <main id="main" class="flex-row">
         <aside class="tab-nav flex-column">
             <ul>
-                <a tab-link="#about" class="ACTIVE">About</a>
-                <a tab-link="#posts" onclick="uploadPosts('userposts/<%=req_user.username%>')">Posts</a>
+                <a href="#top" tab-link="#about" class="ACTIVE">About</a>
+                <a href="#top" tab-link="#posts" onclick="uploadPosts('userposts/<%=req_user.username%>')">Posts</a>
                 <%if(req_user.username == logged_user.username){%>
-                <a tab-link="#profile">Profile</a>
-                <a tab-link="#settings">Settings</a>
+                    <a href="#top" tab-link="#profile">Profile</a>
+                    <a href="#top" tab-link="#settings">Settings</a>
                 <%}%>
             </ul>
         </aside>
@@ -114,12 +115,12 @@
                         autocomplete="off">
 
                         <div class="pair flex-column">
-                            <label for="bio">Your Bio</label>
-                            <textarea name="bio" id="bio" cols="10" rows="3"><%=logged_user.personal.bio%></textarea>
-                        </div>
-                        <div class="pair flex-column">
                             <label for="displayname">Display name</label>
                             <input type="text" name="displayname" id="displayname" value="<%=logged_user.displayname%>">
+                        </div>
+                        <div class="pair flex-column">
+                            <label for="bio">Your Bio</label>
+                            <textarea name="bio" id="bio" cols="10" rows="3"><%=logged_user.personal.bio%></textarea>
                         </div>
                         <div class="pair flex-column">
                             <label for="birthdate">Birthdate</label>
@@ -166,24 +167,40 @@
             </div>
 
             <div id="settings" class="tab flex-column" tab="settings">
-                <form id="loginSettings" class="flex-column" action="" method="POST">
-                    <h2 class="form-title">Update your privacy data</h2>
+                <h2 class="form-title">Update your privacy data</h2>
+                <form id="loginSettings" class="flex-column" action="<%=logged_user.username%>/updatesettings" method="POST">
+                    <h2>User <%=logged_user.displayname%> <h3>(@<%=logged_user.username%>)</h3></h2>
+                        <label>Email</label>
+                        <input type="email" name="email" value="<%=logged_user.email%>">
 
-                </form>
+                        <label for="currentpassword">Current Password</label>
+                        <input type="password" name="currentpassword" placeholder="Current password" required>
 
-                <form id="preferencesSettings" class="flex-column" action="<%=logged_user.username%>/updatepreferences"
-                                    method="POST">
-                                    <h2 class="form-title">Update your preferences</h2>
-                                    <table class='flex-column'>
-                                        <tbody>
-                                            <tr class='flex-row'>
-                                                <th class='label'>Preference visibility</th>
-                                                <th>Show</th>
-                                                <th>Hide</th>
-                                            </tr>
-                                            <tr class="flex-row">
-                                                <td class='label'><label for="adress">Email</label></td>
-                                                <td><input type="radio" name="email" id="email" value="true" <%if(logged_user.preferences.email==true){%>checked<%}%>></td>
+                        <label id="showChangePassword" class="C-underline">Change password?</label>
+                        <div id="changePassword" class="flex-column">
+                            <label for="newpassword">New Password</label>
+                            <input type="password" name="newpassword" placeholder="Choose a new password">
+                        </div>
+
+
+                        <div class="controls flex-row">
+                            <button class="C-redButton" type="reset">Reset</button>
+                            <button type="submit" class="C-blueButton">Update</button>
+                        </div>
+                    </form>
+
+                    <h2 class="form-title">Update your preferences</h2>
+                    <form id="preferencesSettings" class="flex-column" action="<%=logged_user.username%>/updatepreferences" method="POST">
+                        <table class='flex-column'>
+                            <tbody>
+                                <tr class='flex-row'>
+                                    <th class='label'>Preference visibility</th>
+                                    <th>Show</th>
+                                    <th>Hide</th>
+                                </tr>
+                                <tr class="flex-row">
+                                    <td class='label'><label for="adress">Email</label></td>
+                                    <td><input type="radio" name="email" id="email" value="true" <%if(logged_user.preferences.email==true){%>checked<%}%>></td>
                                 <td><input type="radio" name="email" id="email" value="false" <%if(logged_user.preferences.email==false){%>checked<%}%>></td>
                             </tr>
                             <tr class="flex-row">

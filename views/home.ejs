@@ -22,37 +22,7 @@
 <body>
 
     <%-include ('partials/header')%>
-    <div id="overlay" class="flex-column">
-        <div id="deletePOPUP" class="popup flex-column">
-            <div class="flex-row header">
-                <p>Do you want to delete this post?</p>
-            </div>
-            <div class="flex-row content">
-                <p id="deleteContent" class="flex-column">l Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                    Itaque reiciendis exercitationem dolores impedit asperiores illum laboriosam tempora velit officia
-                    necessitatibus.</p>
-            </div>
-            <div class="flex-row">
-                <a id="cancelDelete" class="button"> CANCEL</a>
-                <a id="confirmDelete" class="button"> DELETE </a>
-            </div>
-        </div>
-
-        <div id="editPOPUP" class="popup flex-column">
-            <div class="flex-row header">
-                <p>Edit your post!</p>
-            </div>
-            <form id="editForm" class="flex-row content" action="/editpost" method="POST">
-                <textarea name="editedContent" id="editContent" cols="30">
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cum maxime veniam possimus, animi corporis doloribus! Esse est officia placeat aspernatur enim aperiam a impedit praesentium tempore, quo nihil! Aliquid et voluptas culpa magni iure voluptatibus quod nisi cupiditate eligendi ratione, adipisci laboriosam illo officiis rem alias ex quaerat magnam facere?
-                </textarea>
-            </form>
-            <div class="flex-row">
-                <a id="cancelEdit" class="button">Cancel</a>
-                <a id="confirmEdit" class="button">Edit</a>
-            </div>
-        </div>
-    </div>
+    <%-include ('partials/postDialogs')%>
 
     <main class="flex-row">
         <section id="posts" class="flex-column">
