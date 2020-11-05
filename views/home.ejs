@@ -23,6 +23,8 @@
 
     <%-include ('partials/header')%>
     <%-include ('partials/postDialogs')%>
+    <%-include ('partials/notification')%>
+
 
     <main class="flex-row">
         <section id="posts" class="flex-column">
@@ -31,12 +33,12 @@
                 <a id="create-button" class="C-underline">Create post</a>
                 <a id="AllPosts" class="C-underline" onclick="uploadPosts('allposts')">All posts</a>
                 <a id="MyPosts" class="C-underline" onclick="uploadPosts('myposts')">My posts</a>
-                <a id="SavedPosts" class="C-underline" onclick="uploadPosts('myposts')">Saved posts</a>
+                <a id="SavedPosts" class="C-underline" onclick="uploadPosts('savedposts')">Saved posts</a>
             </nav>
 
 
             <div id="create-post" class="flex-column">
-                <form id="create-form" class="flex-column" action="/post" method="POST">
+                <form id="create-form" class="flex-column" action="/newpost" method="POST">
                     <div class="post-header flex-row">
                         <div class="user flex-row">
                             <a class="avatar"><img class="" src="../public/res/favicon.png" alt=""></a>

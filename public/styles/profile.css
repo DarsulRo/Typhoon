@@ -182,13 +182,17 @@ main .tabs{
     box-shadow: 0 0 4px 1px rgba(156, 156, 156, 0.753);
     transition: box-shadow 0.3s ease;
 }
-#profile form .pair:focus-within{
+#profile form .pair:focus-within{ 
     box-shadow: 0 0 5px 1px var(--lightblue);
 }
 #profile form .pair > *:nth-child(1){
     margin-bottom: 0.5rem;
     font-size: 1.35rem;
     color: gray;
+    transition: all 0.3s ease;
+}
+#profile form .pair:focus-within > *:nth-child(1) {
+    color: var(--lightblue);
 }
 #profile form .pair > *:nth-child(2){
     margin: 0.5rem 0;
@@ -202,8 +206,6 @@ main .tabs{
     padding: 0.5rem 0;
     padding-left: 0.5rem;
     transition: border-color 0.3s ease;
-}#profile form .pair > *:nth-child(2):focus{
-    border-color: var(--lightblue) !important;
 }
 #profile form .pair textarea#bio{
     resize: vertical;
@@ -258,20 +260,35 @@ main .tabs{
     margin-bottom: 5rem;
     padding-left: 1.5rem;
 }
-#settings #loginSettings label{
+#settings #loginSettings .pair{
     margin-top: 1rem;
+    margin-bottom: 2rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+#settings #loginSettings .pair:focus-within label{
+    color: var(--lightblue);
+}
+#settings #loginSettings label{
     font-size: 1.25rem;
     margin-bottom: 1rem;
+    transition: all 0.3s ease;
 }
 #settings #loginSettings input{
     padding: 0.5rem 0;
     width: 100%;
     background-color: transparent;
-    margin-bottom: 2rem;
     font-size: 1.15rem;
     border:none;
-    border-bottom: solid 1px var(--gray);
+    border-bottom: solid 2px var(--gray);
     outline: none;
+    transition: all 0.3s ease;
+}
+#settings #loginSettings input:focus{
+    border-color: var(--lightblue);
 }
 #settings #loginSettings #showChangePassword{
     cursor: pointer;

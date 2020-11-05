@@ -1,0 +1,48 @@
+<div class='notification flex-row' id='notification'>
+    <style>
+        .notification{
+            position: fixed;
+            z-index: 3;
+            height: 6rem;
+            width: min(80%,20rem);
+            background-color: var(--mainwhite);
+            border: solid 2px var(--gray);
+            border-radius: 2rem;
+            bottom: 1rem;
+            left: -30rem;
+            justify-content: space-between;
+            box-shadow: 0 0 7px 0px var(--gray);
+            transition: all 0.5s ease 0s;
+        }
+        p.text{
+            margin: 0 1rem;
+            font-family: Exo-Medium;
+            font-size: 1.25rem;
+        }
+        button.dismiss{
+            cursor: pointer;
+            padding: 0;
+            outline: none;
+            border: none;
+            width: 3rem;
+            height: 3rem;
+            margin-right: 1rem;
+            border-radius: 50%;
+            background-color: transparent;
+            font-family: Exo-Medium;
+            font-size: 1.5rem;
+            border: solid 2px transparent;
+            color: var(--gray);
+        }
+        button.dismiss:hover{
+            border: solid 2px var(--gray);
+            background-color: var(--secondwhite);
+        }
+    </style>
+    <p class="text" id='notification-message'>
+        Something went wrong, there is no text here
+    </p>
+    <button class='dismiss' onclick="endNotififaction()">
+        X
+    </button>
+</div>

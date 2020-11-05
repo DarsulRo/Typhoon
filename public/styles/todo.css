@@ -1,0 +1,54 @@
+body{
+    background-image: linear-gradient(to top left, #44bbee, #0088bb);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    overflow-x: hidden;
+}
+main{
+    width: min(100%, 30rem);
+    height: 100%;
+}
+h1{
+    margin-bottom: 2rem;
+    color: var(--mainwhite);
+    text-shadow: 2px 2px var(--gray);
+    font-family: Exo-Medium;
+    font-weight: 600;
+    font-size: 4rem;
+}
+form{
+    width: 100%;
+    margin-bottom: 2rem;
+}
+input{
+    height: 3rem;
+    flex-grow: 1;
+    border-radius: 5px;
+    border: solid 2px gray;
+    margin-right: 1rem;
+    padding-left: 1rem;
+    font-size: 1.25rem;
+}
+button.C-greenButton{
+    background-color: var(--mainwhite);
+}
+#todos{
+    width: 100%;
+}
+li.todo{
+    background-color: rgba(0, 128, 128, 0.404);
+    padding: 1.5rem 1rem;
+    width: 100%;
+    justify-content: space-between;
+    color: var(--mainwhite);
+    font-size: 1.15rem;
+    border-top: solid 2px var(--gray);
+}
+button.C-underline{
+    cursor: pointer;
+    background-color: transparent;
+    outline: none;
+    border: none;
+    color: var(--mainwhite);
+    font-size: 1.15rem;
+}

@@ -3,13 +3,13 @@ const jwt = require('jsonwebtoken')
 module.exports = function(req,res,next){
     const token = req.cookies.jwt
     if(!token) {
-        return res.status(401).render('launch')
+        return res.status(401).redirect('/login')
     }
     try {
         const verified = jwt.verify(token, process.env.ACCESS_TOKEN)
         req.userID = verified.id;
         next();
     } catch (error) {
-        res.status(401).render('launch')
+        res.status(401).redirect('/login')
     }
 }

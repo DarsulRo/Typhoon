@@ -95,7 +95,7 @@
 }
 
 .C-blueButton{
-    background-color: var(--secondwhite);
+    background-color: transparent;
     padding: 0.5rem;
     width: 7rem;
     border: solid 0.2rem var(--lightblue);
@@ -110,10 +110,11 @@
 .C-blueButton:hover{
     background-color: var(--lightblue);
     color: var(--mainwhite);
+    box-shadow: 3px 3px 5px -1px rgba(128, 128, 128, 1);
 }
 
 .C-redButton{
-    background-color: var(--secondwhite);
+    background-color: transparent;
     padding: 0.5rem;
     width: 7rem;
     border: solid 0.2rem var(--red);
@@ -128,10 +129,11 @@
 .C-redButton:hover{
     background-color: var(--red);
     color: var(--mainwhite);
+    box-shadow: 3px 3px 5px -1px rgba(128, 128, 128, 1);
 }
 
 .C-grayButton{
-    background-color: var(--secondwhite);
+    background-color: transparent;
     padding: 0.5rem;
     width: 7rem;
     border: solid 0.2rem var(--gray);
@@ -146,5 +148,23 @@
 .C-grayButton:hover{
     background-color: var(--gray);
     color: var(--mainwhite);
+    box-shadow: 3px 3px 5px -1px rgba(128, 128, 128, 1);
 }
-
+.C-greenButton{
+    background-color: transparent;
+    padding: 0.5rem;
+    width: 7rem;
+    border: solid 0.2rem var(--green);
+    border-radius: 0.3rem;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1.25rem;
+    color: var(--green);
+    text-align: center;
+}
+.C-greenButton:hover{
+    background-color: var(--green);
+    color: var(--mainwhite);
+    box-shadow: 3px 3px 5px -1px rgba(128, 128, 128, 1);
+}

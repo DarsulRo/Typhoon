@@ -43,14 +43,13 @@
                 <a href="#top" tab-link="#about" class="ACTIVE">About</a>
                 <a href="#top" tab-link="#posts" onclick="uploadPosts('userposts/<%=req_user.username%>')">Posts</a>
                 <%if(req_user.username == logged_user.username){%>
-                    <a href="#top" tab-link="#profile">Profile</a>
-                    <a href="#top" tab-link="#settings">Settings</a>
+                <a href="#top" tab-link="#profile">Profile</a>
+                <a href="#top" tab-link="#settings">Settings</a>
                 <%}%>
             </ul>
         </aside>
         <div class='tabs flex-column'>
-            <div id="tabs-overlay" class="animeoverlay"></div>
-                
+            <div id="tabs-overlay" class="animeoverlay"></div>  
             <div id="about" class="tab flex-column ACTIVE" tab="about">
                 <h2 class="C-underline"><%=req_user.displayname%></h2>
 
@@ -168,18 +167,28 @@
 
             <div id="settings" class="tab flex-column" tab="settings">
                 <h2 class="form-title">Update your privacy data</h2>
-                <form id="loginSettings" class="flex-column" action="<%=logged_user.username%>/updatesettings" method="POST">
-                    <h2>User <%=logged_user.displayname%> <h3>(@<%=logged_user.username%>)</h3></h2>
-                        <label>Email</label>
-                        <input type="email" name="email" value="<%=logged_user.email%>">
+                <form id="loginSettings" class="flex-column" action="<%=logged_user.username%>/updatesettings"
+                                    method="POST">
+                        <h2>User <%=logged_user.displayname%> <h3>(@<%=logged_user.username%>)</h3>
+                        </h2>
+                        <div class="pair">
+                            <label>Email</label>
+                            <input type="email" name="email" value="<%=logged_user.email%>">
+                        </div>
+                        <div class="pair">
+                            <label for="currentpassword">Current Password</label>
+                            <input type="password" name="currentpassword" placeholder="Current password"
+                                required>
 
-                        <label for="currentpassword">Current Password</label>
-                        <input type="password" name="currentpassword" placeholder="Current password" required>
+                        </div>
+                        <div class="pair">
+                            <label id="showChangePassword" class="C-underline">Change password?</label>
+                            <div id="changePassword" class="flex-column">
+                                <label for="newpassword">New Password</label>
+                                <input type="password" name="newpassword"
+                                    placeholder="Choose a new password">
 
-                        <label id="showChangePassword" class="C-underline">Change password?</label>
-                        <div id="changePassword" class="flex-column">
-                            <label for="newpassword">New Password</label>
-                            <input type="password" name="newpassword" placeholder="Choose a new password">
+                            </div>
                         </div>
 
 
@@ -187,10 +196,11 @@
                             <button class="C-redButton" type="reset">Reset</button>
                             <button type="submit" class="C-blueButton">Update</button>
                         </div>
-                    </form>
+                </form>
 
                     <h2 class="form-title">Update your preferences</h2>
-                    <form id="preferencesSettings" class="flex-column" action="<%=logged_user.username%>/updatepreferences" method="POST">
+                    <form id="preferencesSettings" class="flex-column"
+                        action="<%=logged_user.username%>/updatepreferences" method="POST">
                         <table class='flex-column'>
                             <tbody>
                                 <tr class='flex-row'>
@@ -200,23 +210,23 @@
                                 </tr>
                                 <tr class="flex-row">
                                     <td class='label'><label for="adress">Email</label></td>
-                                    <td><input type="radio" name="email" id="email" value="true" <%if(logged_user.preferences.email==true){%>checked<%}%>></td>
-                                <td><input type="radio" name="email" id="email" value="false" <%if(logged_user.preferences.email==false){%>checked<%}%>></td>
+                                    <td><input type="radio" name="email" value="true" <%if(logged_user.preferences.email==true){%>checked<%}%>></td>
+                                <td><input type="radio" name="email" value="false" <%if(logged_user.preferences.email==false){%>checked<%}%>></td>
                             </tr>
                             <tr class="flex-row">
                                 <td class='label'><label for="birthdate">Date of birth</label></td>
-                                <td><input type="radio" name="birthdate" id="birthdate" value="true" <%if(logged_user.preferences.birthdate==true){%>checked<%}%>></td>
-                                <td><input type="radio" name="birthdate" id="birthdate" value="false" <%if(logged_user.preferences.birthdate==false){%>checked<%}%>></td>
+                                <td><input type="radio" name="birthdate" value="true" <%if(logged_user.preferences.birthdate==true){%>checked<%}%>></td>
+                                <td><input type="radio" name="birthdate" value="false" <%if(logged_user.preferences.birthdate==false){%>checked<%}%>></td>
                             </tr>
                             <tr class="flex-row">
                                 <td class='label'><label for="phonenumber">Phone number</label></td>
-                                <td><input type="radio" name="phonenumber" id="phonenumber" value="true" <%if(logged_user.preferences.phonenumber==true){%>checked<%}%>></td>
-                                <td><input type="radio" name="phonenumber" id="phonenumber" value="false"<%if(logged_user.preferences.phonenumber==false){%>checked<%}%> ></td>
+                                <td><input type="radio" name="phonenumber"  value="true" <%if(logged_user.preferences.phonenumber==true){%>checked<%}%>></td>
+                                <td><input type="radio" name="phonenumber"  value="false"<%if(logged_user.preferences.phonenumber==false){%>checked<%}%> ></td>
                             </tr>
                             <tr class="flex-row">
                                 <td class='label'><label for="adress">Adress</label></td>
-                                <td><input type="radio" name="adress" id="adress" value="true" <%if(logged_user.preferences.adress==true){%>checked<%}%>></td>
-                                <td><input type="radio" name="adress" id="adress" value="false" <%if(logged_user.preferences.adress==false){%>checked<%}%>></td>
+                                <td><input type="radio" name="adress"  value="true" <%if(logged_user.preferences.adress==true){%>checked<%}%>></td>
+                                <td><input type="radio" name="adress"  value="false" <%if(logged_user.preferences.adress==false){%>checked<%}%>></td>
                             </tr>
                              <tr class="flex-row">
                                 <td class='label'><label for="occupation">Occupation</label></td>
@@ -225,8 +235,8 @@
                             </tr>
                             <tr class="flex-row">
                                 <td class='label'><label for="relationstatus">Relationship status</label></td>
-                                <td><input type="radio" name="relationstatus" id="relationstatus" value="true" <%if(logged_user.preferences.relationstatus==true){%>checked<%}%>></td>
-                                <td><input type="radio" name="relationstatus" id="relationstatus" value="false" <%if(logged_user.preferences.relationstatus==false){%>checked<%}%>></td>
+                                <td><input type="radio" name="relationstatus" value="true" <%if(logged_user.preferences.relationstatus==true){%>checked<%}%>></td>
+                                <td><input type="radio" name="relationstatus" value="false" <%if(logged_user.preferences.relationstatus==false){%>checked<%}%>></td>
                             </tr>
                             
                             

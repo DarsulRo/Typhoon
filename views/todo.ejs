@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todos</title>
+    <link rel="stylesheet" href="../public/styles/root.css">
+    <link rel="stylesheet" href="../public/styles/todo.css">
+</head>
+
+<body class='flex-column'>
+    <main class='flex-column'>
+        <h1>TODOS</h1>
+        <form method="dialog" autocomplete="off">
+            <div class="flex-row">
+                <input type="text" name="newtask" id="newtask">
+                <button id="addtask" type="submit" class="C-greenButton">Add</button>
+            </div>
+        </form>
+        <ul id="todos" class='flex-column'>
+
+        </ul>
+    </main>
+
+</body>
+<script>
+
+    window.addEventListener('DOMContentLoaded', async function () {
+        renderTodos()
+    })
+
+    let addbutton = document.getElementById('addtask')
+    let container = document.getElementById('todos')
+
+    addbutton.addEventListener('click', async function () {
+        let newtasktext = document.getElementById('newtask')
+        if (newtasktext.value != '') {
+            await fetch('/addtodo', {
+                method: 'Post',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ task: newtasktext.value })
+            })
+            renderTodos()
+            newtasktext.value=''
+            newtasktext.focus()
+        }
+    })
+
+    async function deleteTodo(event) {
+        let taskID = event.attributes.taskID.value
+        let response = await (await fetch('/deletetodo/' + taskID)).json()
+        renderTodos()
+    }
+    async function renderTodos() {
+
+        alltodos = await (await fetch('/getalltodos')).json()
+        container.innerHTML = ''
+        alltodos.forEach(todo => {
+            let html = 
+            `<li class="todo flex-row">
+                <p>${todo.task}</p>
+                <button taskID=${todo._id} class='C-underline' onclick='deleteTodo(this)'>Delete</button>
+            </li>`
+            container.insertAdjacentHTML("beforeend", html)
+        });
+    }
+</script>
+</html>

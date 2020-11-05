@@ -17,3 +17,16 @@ h2.format{
     text-shadow: 0.5rem 0.5rem var(--gray);
     font-size: 8rem;
 }
+button.go-back{
+    cursor: pointer;
+    font-size: 2rem;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: var(--secondwhite);
+    text-shadow: 0.15rem 0.15rem var(--gray);
+    font-family: Exo-Medium;
+}
+button.go-back::after{
+    background-color: var(--mainwhite);
+}

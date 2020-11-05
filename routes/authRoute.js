@@ -30,9 +30,8 @@ router.post('/register', async function (req, res) {
             username: req.body.username, 
             displayname: req.body.displayname,
             password: hashedPass,
-            postLikes: [],
-            postSaves: [],
             personal: {
+                bio: null,
                 birthdate: null,
                 phonenumber: null,
                 adress: null,

@@ -20,8 +20,11 @@ async function uploadPosts(type){
     try {
         var posts = await (await fetch('/get' + type)).json()
         var logged_user = await (await fetch('/getloggeduser')).json()
+        
+
         clearPosts()
         posts.forEach(post => {
+
             container.insertAdjacentHTML('afterbegin',renderPost(post,logged_user)
         )})
         stopLoadAnimation()
@@ -34,7 +37,7 @@ async function uploadPosts(type){
 
 
 function renderPost(post,logged_user){
-    let POST = `<div class="flex-column POST">
+    let POST = `<div class="flex-column POST" postID="${post.postID}">
     <div class="post-header flex-row">
         <div class="user flex-row">
             <a href="/user/${post.username}" class="avatar"><img class="" src="../public/res/favicon.png" alt=""></a>
@@ -64,15 +67,19 @@ function renderPost(post,logged_user){
             <ul class="hided flex-column">
 
                 ${(post.username == logged_user.username)
-                    ?`<a postID="${post._id}" onclick="initiatePostEdit(this)" class="C-underline flex-row">
+                    ?`<a postID="${post.postID}" onclick="initiatePostEdit(this)" class="C-underline flex-row">
                     <img src="../public/res/edit.svg" alt=""><p>Edit</p>
                     </a>
-                    <a postID="${post._id}" onclick="initiatePostDelete(this)" class="C-underline flex-row">
+                    <a postID="${post.postID}" onclick="initiatePostDelete(this)" class="C-underline flex-row">
                         <img src="../public/res/delete.svg" ><p >Delete</p>
                     </a>`
-                    
-                    :`<a class="C-underline flex-row"><img src="../public/res/save.svg" alt=""><p>Save</p></a>
-                    <a postID="${post._id}" onclick="initiatePostReport(this)" class="C-underline flex-row"><img src="../public/res/warning.svg" alt=""><p>Report</p></a>`
+                    : 
+                    `<a postID="${post.postID}" onclick="initiatePostSave(this)" class="C-underline flex-row">
+                        ${(post.saved==false)?`<img src="../public/res/save.svg" alt=""><p>Save</p>`
+                                            :`<img src="../public/res/saved.png" alt=""><p>Unsave</p>`
+                        }
+                    </a>
+                    <a postID="${post.postID}" onclick="initiatePostReport(this)" class="C-underline flex-row"><img src="../public/res/warning.svg" alt=""><p>Report</p></a>`
                 }
             </ul>
         </div>

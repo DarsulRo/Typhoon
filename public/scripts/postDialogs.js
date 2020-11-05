@@ -1,3 +1,20 @@
+//NOTIFICATION
+var msg_paragraph = document.getElementById('notification-message')
+var notificationDialog = document.getElementById('notification')
+
+async function initiateNotification(msg){
+    msg_paragraph.innerText=msg;
+    notificationDialog.style.left= '2rem'
+
+    setTimeout(function(){
+        endNotififaction()
+    },3000)
+}
+function endNotififaction(){
+    notificationDialog.style.left= '-30rem'
+}
+
+
 //SHOW&HIDE POST OPTIONS MENU
 window.addEventListener('click',hideOptions)
 function hideOptions(){
@@ -28,6 +45,8 @@ var deletePOPUP = document.getElementById('deletePOPUP')
 var deleteContent = document.getElementById('deleteContent')
 var confirmDelete = document.getElementById('confirmDelete')
 var cancelDelete = document.getElementById('cancelDelete')
+
+
 
 function initiatePost(){
     finalizePost()
@@ -90,4 +109,42 @@ function initiatePostReport(event){
     reportForm.setAttribute('action', "/reportpost/"+postID) 
 
     reportPOPUP.style.display='flex'
+}
+
+
+//save POST
+
+async function initiatePostSave(event){
+    let post = event.parentElement.parentElement.parentElement.parentElement
+    let postID = post.attributes.postID.value
+    
+    
+    var response = await fetch('/savepost',{
+        method: 'Post',
+        headers:{
+            'Content-Type' : 'application/json'
+        },
+        body: JSON.stringify({
+            postID
+        })
+    })
+    response= await response.json()
+
+    if(response=='saved'){
+        event.firstElementChild.setAttribute('src',"../public/res/saved.png")
+        event.lastElementChild.innerText='Saved'
+        endNotififaction()
+        initiateNotification('Post saved')
+    }   
+
+    else if(response=='unsaved'){
+        event.firstElementChild.setAttribute('src',"../public/res/save.png")
+        event.lastElementChild.innerText='Save'
+        endNotififaction()
+        initiateNotification('Post unsaved')
+    }
+    else{
+        endNotififaction()
+        initiateNotification('There was an error while saving this post')
+    }
 }
