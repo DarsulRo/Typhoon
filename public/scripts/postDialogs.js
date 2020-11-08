@@ -133,18 +133,41 @@ async function initiatePostSave(event){
     if(response=='saved'){
         event.firstElementChild.setAttribute('src',"../public/res/saved.png")
         event.lastElementChild.innerText='Saved'
-        endNotififaction()
         initiateNotification('Post saved')
     }   
 
     else if(response=='unsaved'){
         event.firstElementChild.setAttribute('src',"../public/res/save.png")
         event.lastElementChild.innerText='Save'
-        endNotififaction()
         initiateNotification('Post unsaved')
     }
     else{
-        endNotififaction()
         initiateNotification('There was an error while saving this post')
     }
+}
+
+async function initiatePostLike(event, like_type){
+    let postID = event.parentElement.attributes.postID.value
+    
+    let response = await(await fetch('/likepost',{
+      method:'POST',
+      headers:{
+          'Content-Type': 'application/json'
+      },
+      body:JSON.stringify({
+        liketype:like_type,
+        postID: postID
+      })
+    })).json()
+    event.parentElement.firstElementChild.innerText=response.likes
+    let like_childs = event.parentElement
+    let likeCount = like_childs.firstElementChild
+    let likeBtn = likeCount.nextElementSibling.firstElementChild
+    let dislikeBtn = like_childs.lastElementChild.firstElementChild
+
+    likeBtn.setAttribute('src','../public/res/like.png')
+    dislikeBtn.setAttribute('src','../public/res/dislike.png')
+
+    if(response.like_result==1)likeBtn.setAttribute('src','../public/res/liked.png')
+    if(response.like_result==-1)dislikeBtn.setAttribute('src','../public/res/disliked.png')
 }

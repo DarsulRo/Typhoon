@@ -26,7 +26,17 @@ router.post('/editpost/:postID',verify,async function(req,res){
     var findandupdate = await Mongo.db.db('typhoon').collection('posts').findOneAndUpdate(query,update)
     return res.redirect('back')
 })
-
+router.post('/reportpost/:postID',verify,async function(req,res){
+    console.log(req.body)
+    Mongo.db.db('typhoon').collection('post_reports').insertOne({
+        userID:ObjectId(req.userID),
+        postID:ObjectId(req.params.postID),
+        reason:req.body.reason,
+        message: req.body.reasonText,
+        date: new Date()
+    })
+    res.redirect(301, 'back')
+})
 router.get('/getpostcontent/:postID',verify, async function(req,res){
     var postConent = await Mongo.db.db('typhoon').collection('posts').findOne({_id:ObjectId(req.params.postID)},{projection:{_id:0,content:1}})
     res.json(postConent)
@@ -36,7 +46,8 @@ router.get('/getallposts',verify, async function(req,res){
     let allposts = await Mongo.db.db('typhoon').collection('posts').find({}).sort({date:1}).toArray()
     let allusers = await Mongo.db.db('typhoon').collection('users').find({}).toArray()
     let post_saves = await Mongo.db.db('typhoon').collection('post_saves').find({userID: ObjectId(req.userID)}).toArray()
-    
+    let post_likes = await Mongo.db.db('typhoon').collection('post_likes').find({userID:ObjectId(req.userID)}).toArray()
+
     allposts = allposts.map(function(post){
         let newpost = null
         allusers.forEach(user => {
@@ -48,6 +59,14 @@ router.get('/getallposts',verify, async function(req,res){
                         saved = true;
                     }
                 })
+
+                let liked = 0;
+                post_likes.forEach(post_like =>{
+                    if(JSON.stringify(post_like.postID)==JSON.stringify(post._id)){
+                        liked = post_like.like
+                    }
+                })
+
                 newpost = {
                     postID: post._id,
                     content: post.content,
@@ -55,7 +74,8 @@ router.get('/getallposts',verify, async function(req,res){
                     date: post.date,
                     username: user.username,
                     displayname: user.displayname,
-                    saved: saved
+                    saved: saved,
+                    liked: liked
                 }
             }
         });
@@ -63,7 +83,23 @@ router.get('/getallposts',verify, async function(req,res){
     })
     res.json(allposts)
 })
+router.get('/getpost/:postID',verify,async function(req,res){
+    let post = await Mongo.db.db('typhoon').collection('posts').findOne({_id:ObjectId(req.params.postID)})
+    let post_user = await Mongo.db.db('typhoon').collection('users').findOne({_id:post.userID})
+    let post_save = await Mongo.db.db('typhoon').collection('post_saves').findOne({postID:ObjectId(post._id),userID:ObjectId(req.userID)})
+    let post_like = await Mongo.db.db('typhoon').collection('post_likes').findOne({postID:ObjectId(post._id),userID:ObjectId(req.userID)})
+    let liked = post_like==undefined?0:post_like.like
+    post_save=post_save==undefined?false:true
 
+    post = {
+        ...post,
+        username: post_user.username,
+        displayname: post_user.displayname,
+        saved: post_save,
+        liked: liked    
+    }
+    res.json(post)
+})
 router.get('/getmyposts',verify,async function(req,res){
     var logged_user = await Mongo.db.db('typhoon').collection('users').findOne({_id: ObjectId(req.userID)})
     var myposts = await Mongo.db.db('typhoon').collection('posts').find({userID:ObjectId(req.userID)}).toArray()
@@ -119,7 +155,8 @@ router.get('/getsavedposts',verify,async(req,res)=>{
     let post_saves = await Mongo.db.db('typhoon').collection('post_saves').find({userID:ObjectId(req.userID)}).toArray()
     let allposts = await Mongo.db.db('typhoon').collection('posts').find({}).sort({date:1}).toArray()
     let allusers = await Mongo.db.db('typhoon').collection('users').find({}).toArray()
-    
+    let post_likes = await Mongo.db.db('typhoon').collection('post_likes').find({userID:ObjectId(req.userID)}).toArray()
+
     let savedposts = []
     allposts.forEach(post=>{
         post_saves.forEach(post_save =>{
@@ -135,9 +172,60 @@ router.get('/getsavedposts',verify,async(req,res)=>{
                 newpost =  {...savedpost,username:user.username,displayname:user.displayname,postID:savedpost._id}
             }
         })
+
+        let liked = 0;
+            post_likes.forEach(post_like =>{
+                if(JSON.stringify(post_like.postID)==JSON.stringify(savedpost._id)){
+                    liked = post_like.like
+            }
+        })
+        newpost = {
+            ...newpost,
+            liked: liked
+        }
+
         return newpost;
     })
+
     res.json(savedposts)
 })
+
+router.post('/likepost',verify, async function(req,res){
+    let like_type = req.body.liketype // 1=like, -1=dislike, 0=none
+    let postID = req.body.postID
+    let query={
+        postID:ObjectId(postID),
+        userID:ObjectId(req.userID)
+    }
+
+    let post_like = await Mongo.db.db('typhoon').collection('post_likes').findOne(query)
+    let like_result =0
+
+    if(post_like==undefined){ //Not liked/disliked
+        await Mongo.db.db('typhoon').collection('post_likes').insertOne({...query,like:like_type})
+        like_result=like_type
+    }
+    else if(like_type != post_like.like){ //Like or dislike post (different likes)
+        await Mongo.db.db('typhoon').collection('post_likes').findOneAndUpdate(query,{ $set: {like:like_type}})
+        like_result = like_type
+        like_type = 2*like_type
+    }
+    else{ //Remove like from post (same like type)
+        await Mongo.db.db('typhoon').collection('post_likes').findOneAndDelete(query)
+        like_result = 0
+        like_type =-like_type 
+    }
+
+    let current_post = await Mongo.db.db('typhoon').collection('posts').findOne({_id:ObjectId(postID)})
+    await Mongo.db.db('typhoon').collection('posts').findOneAndUpdate({_id:ObjectId(postID)},{$set: {likes: current_post.likes + like_type}})
+    
+    res.status(201).json({
+        likes: like_type+current_post.likes,
+        like_result: like_result
+    })
+    
+})
+
+
 
 module.exports = router

@@ -53,13 +53,18 @@ function renderPost(post,logged_user){
     </div>
     <div class="interact flex-row">
 
-        <div class="like flex-row">
+        <div postID="${post.postID}" class="like flex-row">
             <p class="likes-count">${post.likes}</p>
-            <a href="" class="C-underline">
-                <img src="../public/res/like.png" >
+            <a onclick="initiatePostLike(this,1)" class="C-underline">
+                ${(post.liked==1)?`<img src="../public/res/liked.png" >`
+                                :`<img src="../public/res/like.png" >`
+                }
             </a>
-            <a href="" class="C-underline">
-                <img src="../public/res/dislike.png">
+            <a onclick="initiatePostLike(this,-1)" class="C-underline">
+            ${(post.liked==-1)?`<img src="../public/res/disliked.png">`
+                            :`<img src="../public/res/dislike.png">`
+            }
+                
             </a>
         </div>
         <div class="options">
@@ -83,10 +88,7 @@ function renderPost(post,logged_user){
                 }
             </ul>
         </div>
-        
-        
     </div>
-
     </div>`
     return POST
 }

@@ -61,6 +61,7 @@ a.display-name:hover{
 .interact .like .likes-count{
     font-size: 1.5rem;
     margin-right: 1rem;
+    min-width: 1.5rem;
 }
 .interact .like a{
     margin-right: 1rem;
