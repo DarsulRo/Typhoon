@@ -40,7 +40,9 @@
 .errorAlert a:hover{
     background-color: rgba(128, 128, 128, 0.288);
 }
-
+.small-icon{
+    height: 2rem;
+}
 
 
 .C-underline{
@@ -66,12 +68,15 @@
 
 .C-fillButton{
     border: solid var(--lightblue) 4px;
-    color: var(--gray);
+    color: var(--lightblue);
+    font-family: Exo-Medium;
     position: relative; 
     z-index: 1;
     text-transform: uppercase;
     overflow: hidden;
     transition:all 0.5s ease;
+    border-radius: 2px;
+    background-color: transparent;
 }
 .C-fillButton:hover{
     color:var(--mainwhite);

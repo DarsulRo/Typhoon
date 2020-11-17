@@ -18,15 +18,26 @@
     <main class="flex-column">
         <h1 class="flex-row"><img src="../public/res/Typhoon.svg" alt="">Register</h1>
         
-        <form class="flex-column" action="/register" method="POST" id="form">
+        <form class="flex-column" action="/register" method="POST" id="form" autocomplete="off">
            
-            <input placeholder="Full Name" type="text" name="displayname" id="displayname" required>
-            <input placeholder="Email" type="email" name="email" id="email" required>
-            <input placeholder="Username" type="text" name="username" id="username" required>
-            <input placeholder="Password" type="password" name="password1" id="password1" required>
-            <input placeholder="Reenter Password" type="password" name="password2" id="password2" required>
+
+            <div class="container">
+                <input placeholder="Full Name" type="text" name="displayname" id="displayname" required>
+            </div>
+            <div class="container">
+                <input placeholder="Email" type="email" name="email" id="email" required>
+            </div>
+            <div class="container">
+                <input placeholder="Username" type="text" name="username" id="username" required>
+            </div>
+            <div class="container">
+                <input placeholder="Password" type="password" name="password1" id="password1" required>
+             </div>
+            <div class="container">
+                <input placeholder="Reenter Password" type="password" name="password2" id="password2" required>
+            </div>
             <h4 id="errorMessage" class="error"></h4>
-            <button type="submit" id="submit">Register</button>
+            <button class="C-fillButton" type="submit" id="submit">Register</button>
         </form>
         <a class="C-underline" href="/login">Already have an account?</a>
     </main>

@@ -25,7 +25,7 @@ async function uploadPosts(type){
         clearPosts()
         posts.forEach(post => {
 
-            container.insertAdjacentHTML('afterbegin',renderPost(post,logged_user)
+            container.insertAdjacentHTML('afterbegin',renderPost(post)
         )})
         stopLoadAnimation()
     }
@@ -36,7 +36,7 @@ async function uploadPosts(type){
 }
 
 
-function renderPost(post,logged_user){
+function renderPost(post){
     let POST = `<div class="flex-column POST" postID="${post.postID}">
     <div class="post-header flex-row">
         <div class="user flex-row">
@@ -64,14 +64,18 @@ function renderPost(post,logged_user){
             ${(post.liked==-1)?`<img src="../public/res/disliked.png">`
                             :`<img src="../public/res/dislike.png">`
             }
-                
             </a>
         </div>
+        <div class="show-comments flex-row C-underline" onclick="showComments(this)">
+            <img src="../../public/res/comment.svg" alt="">
+            <p class="comments-count">${post.commentcount?`${post.commentcount}`:`0`}</p>
+            <p>Comments</p>
+         </div>
         <div class="options">
             <a onclick="showOptions(event)"><img src="../public/res/more.png" alt=""></a>
             <ul class="hided flex-column">
 
-                ${(post.username == logged_user.username)
+                ${(post.madeby_loggeduser==true)
                     ?`<a postID="${post.postID}" onclick="initiatePostEdit(this)" class="C-underline flex-row">
                     <img src="../public/res/edit.svg" alt=""><p>Edit</p>
                     </a>

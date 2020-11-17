@@ -1,4 +1,22 @@
-<script src='../../public/scripts/postDialogs.js' defer></script>
+<div id="comment-overlay" class='flex-row'>
+    <script src='../../public/scripts/postDialogs.js' defer></script>
+    <div id="comment-container" class="flex-column">
+        
+        <div id="post-container">
+            <!-- HERE COMES THE POST-->
+        </div>
+        <form id="add-comment" class="flex-row" autocomplete="off" method="dialog">
+            <input id='new-comment'type="text" placeholder="Add comment" >
+            <button class="C-blueButton"  onclick="addComment(this)">Add</button>
+        </form>
+
+        <div id="comments" class="flex-column">
+            <!-- HERE COMES THE COMMENTS-->
+        </div>
+    </div>
+    <div id='close-overlay'>X</div>
+</div>
+
 
 <div id="overlay" class="flex-column">
     <div id="deletePOPUP" class="popup flex-column">
