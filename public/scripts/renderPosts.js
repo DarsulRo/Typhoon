@@ -19,8 +19,6 @@ async function uploadPosts(type){
     startLoadAnimation()
     try {
         var posts = await (await fetch('/get' + type)).json()
-        var logged_user = await (await fetch('/getloggeduser')).json()
-        
 
         clearPosts()
         posts.forEach(post => {
@@ -76,10 +74,10 @@ function renderPost(post){
             <ul class="hided flex-column">
 
                 ${(post.madeby_loggeduser==true)
-                    ?`<a postID="${post.postID}" onclick="initiatePostEdit(this)" class="C-underline flex-row">
+                    ?`<a onclick="initiatePostEdit(this)" class="C-underline flex-row">
                     <img src="../public/res/edit.svg" alt=""><p>Edit</p>
                     </a>
-                    <a postID="${post.postID}" onclick="initiatePostDelete(this)" class="C-underline flex-row">
+                    <a onclick="initiatePostDelete(this)" class="C-underline flex-row">
                         <img src="../public/res/delete.svg" ><p >Delete</p>
                     </a>`
                     : 
@@ -88,7 +86,7 @@ function renderPost(post){
                                             :`<img src="../public/res/saved.png" alt=""><p>Unsave</p>`
                         }
                     </a>
-                    <a postID="${post.postID}" onclick="initiatePostReport(this)" class="C-underline flex-row"><img src="../public/res/warning.svg" alt=""><p>Report</p></a>`
+                    <a onclick="initiatePostReport(this)" class="C-underline flex-row"><img src="../public/res/warning.svg" alt=""><p>Report</p></a>`
                 }
             </ul>
         </div>

@@ -36,7 +36,7 @@
         <div class="flex-row pheader">
             <p>Edit your post!</p>
         </div>
-        <form id="editForm" class="flex-row content" action="/editpost" method="POST">
+        <form id="editForm" class="flex-row content"  method="dialog">
             <textarea name="editedContent" id="editContent" cols="30"></textarea>
         </form>
         <div class="flex-row">
@@ -49,8 +49,8 @@
         <div class="flex-row pheader">
             <p>Report this post</p>
         </div>
-        <form id="reportForm" class="flex-column content" method="POST">
-            <select name="reason">
+        <form id="reportForm" class="flex-column content" method="dialog">
+            <select id="reportReason" name="reason">
                 <option value="" disabled hidden selected>Choose a reason</option>
                 <option value="spam">Spam or misleading</option>
                 <option value="sexual">Sexual content </option>
@@ -59,11 +59,11 @@
                 <option value="other">Other</option>
             </select>
             <p>Explain</p>
-            <textarea name="reasonText"  cols="30" rows="3"></textarea>
+            <textarea id="reportText" name="reasonText"  cols="30" rows="3"></textarea>
 
             <div class="controls flex-row">
                 <button  cancelPopup class="C-grayButton" type="button">Cancel</button>
-                <button id="confirmReport" class="C-redButton" type="submit">Report</button>
+                <button id="confirmReport" class="C-redButton">Report</button>
             </div>
         </form>
     </div>

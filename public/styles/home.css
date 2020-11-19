@@ -137,13 +137,17 @@ section#posts nav >a::after{
 
 
 /*ASIDE*/
-aside{
+aside.flex-column{
     width: min(30%, 20rem);
     height: 20rem;
     background-color: var(--mainwhite);
     border-radius: 10px;
     position: sticky;
     top:6rem;
+    justify-content: space-evenly;
+}
+aside p{
+    text-align: center;
 }
 
 @media(orientation:portrait){
