@@ -120,7 +120,7 @@ async function requestEdit(){
             newcontent: editTextarea.value
         })
     })
-    result= await result.result.json()
+    result= await result.json()
     if(result!=0){
         editTarget.firstElementChild.nextElementSibling.firstElementChild.innerText=editTextarea.value
         

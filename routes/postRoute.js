@@ -50,7 +50,7 @@ router.get('/getallposts',verify, async function(req,res){
     let allusers = await Mongo.db.db('typhoon').collection('users').find({}).toArray()
     let post_saves = await Mongo.db.db('typhoon').collection('post_saves').find({userID: ObjectId(req.userID)}).toArray()
     let post_likes = await Mongo.db.db('typhoon').collection('post_likes').find({userID:ObjectId(req.userID)}).toArray()
-
+    
     allposts = allposts.map(function(post){
         let newpost = null
         allusers.forEach(user => {

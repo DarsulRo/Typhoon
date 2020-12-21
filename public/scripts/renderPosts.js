@@ -16,6 +16,7 @@ function stopLoadAnimation(){
 
 
 async function uploadPosts(type){
+    postsTAB=type
     startLoadAnimation()
     try {
         var posts = await (await fetch('/get' + type)).json()
@@ -32,6 +33,13 @@ async function uploadPosts(type){
         stopLoadAnimation()
     }
 }
+
+let postsTAB='allposts'
+let lastpostdate ='19-dec-2000'
+async function loadMorePosts(){
+
+}
+
 
 
 function renderPost(post){
